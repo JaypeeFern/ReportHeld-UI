@@ -1,0 +1,37 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --blue-swbt: #0288D1;
+  --input-color: #52525B;
+}
+
+body {
+  background-image: linear-gradient(180deg, #CFD9DF 0%, #E2EBF0 100%) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  background-position: center !important;
+  font-family: 'Inter' !important;
+}
+
+.blue-swbt {
+  background: var(--blue-swbt);
+}
+
+.dropshadow-box-35 { 
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(29,29,29,0.35);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(29,29,29,0.35);
+  box-shadow: 0px 2px 5px 0px rgba(29,29,29,0.35);
+}
+
+.dropshadow-text { 
+  -webkit-text-shadow: 0px 0px 5px rgba(29,29,29,0.25);
+  -moz-text-shadow: 0px 0px 5px rgba(29,29,29,0.25);
+  text-shadow: 0px 0px 5px rgba(29,29,29,0.25);
+}
+
+.input-width {
+  width: 35rem !important;
+}
