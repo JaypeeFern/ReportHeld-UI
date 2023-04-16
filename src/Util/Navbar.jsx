@@ -1,12 +1,15 @@
 import React from 'react';
 import Icon from '@mdi/react';
+import { Link } from 'react-router-dom'
 import { mdiAccountCircle, mdiSignal } from '@mdi/js';
 
 export default function Navbar() {
 	return (
 		<>
 			<div className="flex h-20 blue-swbt rounded-br-2xl rounded-bl-2xl dropshadow-box-35">
-				<img src="src/assets/logo.png" className="rounded-bl-2xl" />
+				<Link to='/' className='flex w-24'>
+					<img src="src/assets/logo.png" className="rounded-bl-2xl" />
+				</Link>
 				<div className="flex flex-row justify-between w-full items-center mx-6">
 					<div className="text-white text-xl font-light flex">
 						<span className="dropshadow-text">Report</span>

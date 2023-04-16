@@ -14,7 +14,7 @@ export const views = {
 	sites: {
 		name: 'Sites',
 		icon:  <LocationOnOutlinedIcon fontSize='large'/>,
-		path: '/',
+		path: 'sites',
 		borderBottom: true,
 		radiusTr: true,
 		radiusBr: false
@@ -28,61 +28,61 @@ export const views = {
 	powerplantfeatures: {
 		name: 'Power Plant Features',
 		icon: <QuestionMarkOutlinedIcon fontSize='large'/>,
-		path: '',
+		path: 'features',
 		borderBottom: true
 	},
 	protocols: {
 		name: 'Protocols',
 		icon: <ChecklistOutlinedIcon fontSize='large'/>,
-		path: '',
+		path: 'protocols',
 		borderBottom: true
 	},
 	templateeditor: {
 		name: 'Template Editor',
 		icon: <FormatSizeOutlinedIcon fontSize='large'/>,
-		path: '',
+		path: 'templates',
 		borderBottom: true
 	},
 	variants: {
 		name: 'Variants',
 		icon: <AltRouteOutlinedIcon fontSize='large'/>,
-		path: '',
+		path: 'variants',
 		borderBottom: true
 	},
 	typedefinitions: {
 		name: 'Type Definitions',
 		icon: <QuestionMarkOutlinedIcon fontSize='large'/>,
-		path: '',
+		path: 'definitions',
 		borderBottom: true
 	},
 	users: {
 		name: 'Users',
 		icon: <PersonAddAltOutlinedIcon fontSize='large'/>,
-		path: '',
+		path: 'users',
 		borderBottom: true
 	},
 	groups: {
 		name: 'Groups',
 		icon: <GroupOutlinedIcon fontSize='large'/>,
-		path: '',
+		path: 'groups',
 		borderBottom: true
 	},
 	feedback: {
 		name: 'Feedback',
 		icon: <FeedbackOutlinedIcon fontSize='large'/>,
-		path: '',
+		path: 'feedback',
 		borderBottom: true
 	},
 	feedBackResults: {
 		name: 'Feedback Results',
 		icon: <QuestionAnswerOutlinedIcon fontSize='large'/>,
-		path: '',
+		path: 'feedback-results',
 		borderBottom: true
 	},
 	profile: {
 		name: 'Profile',
 		icon: <AccountCircleOutlinedIcon fontSize='large'/>,
-		path: '',
+		path: 'profile',
 		borderBottom: true,
 		radiusTr: false,
 		radiusBr: true

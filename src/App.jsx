@@ -1,20 +1,24 @@
 import React from 'react';
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import IndexLayout from './Layouts/IndexLayout';
-import Sites from './Pages/Sites'
-import Powerplants from './Pages/Powerplants'
+import Login from './Pages/Login';
+import Sites from './Pages/Sites';
+import Powerplants from './Pages/Powerplants';
 
 function App() {
+	const router = createBrowserRouter(
+		createRoutesFromElements(
+			<Route path="/">
+        <Route index element={<Login />} />
+				<Route element={<IndexLayout/>}>
+					<Route path="sites" element={<Sites />} />
+					<Route path="powerplants" element={<Powerplants />} />
+				</Route>
+			</Route>
+		)
+	);
 
-	const router = createBrowserRouter(createRoutesFromElements(
-  <Route path="/" element={<IndexLayout />}>
-    <Route index element={<Sites />} />
-    <Route path="powerplants" element={<Powerplants />} />
-  </Route>));
-
-	return (
-    <RouterProvider router={router} />
-  )
+	return <RouterProvider router={router} />;
 }
 
 export default App;

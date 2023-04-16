@@ -5,6 +5,9 @@
 :root {
   --blue-swbt: #0288D1;
   --input-color: #52525B;
+  --table-header-color: #aaff0199;
+  --table-content-color-1: #ECEBEA;
+  --table-content-color-2: #FEFDFD;
 }
 
 body {
@@ -26,6 +29,12 @@ body {
   box-shadow: 0px 2px 5px 0px rgba(29,29,29,0.35);
 }
 
+.dropshadow-box-25 { 
+  -webkit-box-shadow: 0px 2px 1px 0px rgba(29,29,29,0.25);
+  -moz-box-shadow: 0px 2px 1px 0px rgba(29,29,29,0.25);
+  box-shadow: 0px 2px 1px 0px rgba(29,29,29,0.25);
+}
+
 .dropshadow-text { 
   -webkit-text-shadow: 0px 0px 5px rgba(29,29,29,0.25);
   -moz-text-shadow: 0px 0px 5px rgba(29,29,29,0.25);
@@ -34,4 +43,28 @@ body {
 
 .input-width {
   width: 35rem !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    Table                                   */
+/* -------------------------------------------------------------------------- */
+
+.table-header-color {
+  background-color: var(--table-header-color);
+}
+
+.react-table .rt-tbody .rt-tr .rt-td:nth-child(4) {
+	width: 150px; /* Set the desired width for the buttons column */
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    Login                                   */
+/* -------------------------------------------------------------------------- */
+
+.login-container {
+  background-image: url('./Assets/splash.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 }
