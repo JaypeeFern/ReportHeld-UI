@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from '@mdi/react';
+import { Link } from 'react-router-dom';
 import { mdiCloseBox, mdiMapMarker, mdiSquareEditOutline, mdiTrashCan, mdiOpenInNew  } from '@mdi/js';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
@@ -13,8 +14,8 @@ export default function Sites() {
 				address: 'Luebeckertordamm 62, Kirchensittenbach, Freistaat Bayern',
 				action: (
 					<div className="flex gap-3 justify-center">
-						<button className="bg-blue-500 hover:bg-blue-700 p-2 rounded-lg text-white font-semibold flex gap-1 items-center dropshadow-box-25 text-xs">Powerplants <Icon path={mdiOpenInNew} size={1} /> </button>
-						<button className="bg-green-500 hover:bg-green-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs"> <Icon path={mdiSquareEditOutline} size={1} /> </button>
+						<Link to='/powerplants' className="bg-blue-500 hover:bg-blue-700 p-2 rounded-lg text-white font-semibold flex gap-1 items-center dropshadow-box-25 text-xs">Powerplants <Icon path={mdiOpenInNew} size={1} /> </Link>
+						<Link to='/edit-groups' className="bg-green-500 hover:bg-green-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs"> <Icon path={mdiSquareEditOutline} size={1} /> </Link>
 						<button className="bg-red-500 hover:bg-red-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs"> <Icon path={mdiTrashCan} size={1} /> </button>
 					</div>
 				)
@@ -54,7 +55,7 @@ export default function Sites() {
 							<button className="bg-red-500 hover:bg-red-700 rounded-lg font-semibold text-white p-2 text-sm w-20 dropshadow-box-25">Cancel</button>
 						</div>
 						<div className="right flex gap-2 items-center">
-							{/* <h1 className='font-semibold text-white text-md'>Add Site</h1> */}
+							<h1 className='font-semibold text-white text-md'>Add Site</h1>
 							<button>
 								<Icon path={mdiCloseBox} size={1.5} color="#E86B6B" />
 							</button>
