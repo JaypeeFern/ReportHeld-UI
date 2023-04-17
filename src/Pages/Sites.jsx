@@ -88,17 +88,17 @@ export default function Sites() {
 											<label className="text-white text-sm font-bold">Abbreviation Name</label>
 											<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
 										</div>
-										<div class="flex flex-col gap-1 mb-3">
+										<div className="flex flex-col gap-1 mb-3">
 											<label className="text-white text-sm font-bold">Primary Group</label>
-											<select class="dropshadow-box-25 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+											<select className="dropshadow-box-25 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
 												<option value="option1">Option 1</option>
 												<option value="option2">Option 2</option>
 												<option value="option3">Option 3</option>
 											</select>
 										</div>
-										<div class="flex flex-col gap-1 mb-3">
+										<div className="flex flex-col gap-1 mb-3">
 											<label className="text-white text-sm font-bold">Primary Language</label>
-											<select class="dropshadow-box-25 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+											<select className="dropshadow-box-25 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
 												<option value="option1">Option 1</option>
 												<option value="option2">Option 2</option>
 												<option value="option3">Option 3</option>
