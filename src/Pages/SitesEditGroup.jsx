@@ -9,7 +9,7 @@ export default function SitesEditGroup() {
 		const data = [];
 		for (let i = 1; i <= count; i++) {
 			data.push(
-				<div className="flex items-center p-2 gap-2 border rounded-md border-gray-400">
+				<div key={i} className="flex items-center p-2 gap-2 border rounded-md border-gray-400">
 					<Switch id="group" size="md" isChecked={i % 3 === 0 ? true : false} />
 					<Divider orientation="vertical" h="50px" />
 					<label className="text-sm text-center">Just alexander.knauer@stadtwerke-bayreuth.de (PUf6huwM)</label>

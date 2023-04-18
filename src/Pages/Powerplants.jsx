@@ -89,7 +89,7 @@ export default function Powerplants() {
 		);
 	}
 
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = React.useState(true);
 	function handleFilterShow() {
 		setOpen(prevState => !prevState);
 	}
@@ -177,7 +177,7 @@ export default function Powerplants() {
 						{headerGroups.map(headerGroup => (
 							<div {...headerGroup.getHeaderGroupProps()}>
 								{headerGroup.headers.map(column => (
-									<div className="flex gap-2">
+									<div key={column.id} className="flex gap-2">
 										<div className="">{column.id === 'name' ? <SelectColumnFilter column={column} setFilter={column.setFilter} /> : null}</div>
 									</div>
 								))}
