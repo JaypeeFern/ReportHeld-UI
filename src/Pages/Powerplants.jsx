@@ -1,8 +1,8 @@
 import React from 'react';
 import Icon from '@mdi/react';
 import { Link } from 'react-router-dom';
-import { mdiCloseBox, mdiSquareEditOutline, mdiTrashCan, mdiOpenInNew, mdiLightningBolt, mdiFilterMenu } from '@mdi/js';
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Select } from '@chakra-ui/react';
+import { mdiCloseBox, mdiSquareEditOutline, mdiTrashCan, mdiOpenInNew, mdiLightningBolt, mdiFilterMenu, mdiPlus } from '@mdi/js';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Select, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react';
 import { useTable, usePagination, useGlobalFilter, useSortBy, useFilters } from 'react-table';
 
 export default function Powerplants() {
@@ -69,7 +69,7 @@ export default function Powerplants() {
 		return (
 			<div>
 				<label htmlFor={`filter-${id}`} className="block mb-2 text-gray-700">
-					Filter by <span className='capitalize font-bold'>{id}</span>
+					Filter by <span className="capitalize font-bold">{id}</span>
 				</label>
 				<Select
 					id={`filter-${id}`}
@@ -94,9 +94,42 @@ export default function Powerplants() {
 		setOpen(prevState => !prevState);
 	}
 
+	const [selectedFile, setSelectedFile] = React.useState(null);
+	const [previewImageUrl, setPreviewImageUrl] = React.useState(null);
+
+	const handleFileInputChange = event => {
+		const file = event.target.files[0];
+		setSelectedFile(file);
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setPreviewImageUrl(reader.result);
+			};
+			reader.readAsDataURL(file);
+		} else {
+			setPreviewImageUrl(null);
+		}
+	};
+
+	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	const inputGenerator = (count, inputTitles, inputType) => {
+		const inputElements = [];
+		for (let i = 1; i <= count; i++) {
+			const inputTitle = inputTitles[i - 1];
+			inputElements.push(
+				<div key={i} className="flex flex-col gap-1 mb-3">
+					<label className="text-gray-700 text-sm font-bold">{inputTitle}</label>
+					<input className="dropshadow-box-25 border rounded-md p-2" type={inputType} />
+				</div>
+			);
+		}
+		return inputElements; 
+	};
+
 	return (
 		<>
-			<div className="bg-zinc-600 rounded-tl-xl rounded-bl-xl">
+			<div className="bg-zinc-600 rounded-tl-xl rounded-bl-xl ">
 				<div className="bg-black bg-opacity-30 h-16 rounded-tl-xl">
 					<div className="flex justify-between items-center h-16 mx-3">
 						<div className="left flex gap-2 ms-4">
@@ -109,39 +142,90 @@ export default function Powerplants() {
 							</button>
 						</div>
 					</div>
-					<div className="input py-5 px-7 ">
+					<div className="input py-5 px-7">
 						<Tabs variant="unstyled" isFitted>
 							<TabList className="bg-slate-400 p-1 rounded-lg bg-opacity-30 text-white">
 								<Tab fontSize="20-px" className="rounded-lg" _selected={{ color: 'white', bg: '#01ABE9' }}>
-									1
-								</Tab>
-								<Tab className="rounded-lg" _selected={{ color: 'white', bg: '#01ABE9' }}>
-									2
-								</Tab>
-								<Tab className="rounded-lg" _selected={{ color: 'white', bg: '#01ABE9' }}>
-									3
-								</Tab>
-								<Tab className="rounded-lg" _selected={{ color: 'white', bg: '#01ABE9' }}>
-									4
+									Powerplant
 								</Tab>
 							</TabList>
 							<TabPanels className="mt-5">
 								<TabPanel>
 									<div className="flex flex-col gap-3">
 										<div className="flex flex-col gap-1 mb-3">
-											<label className="text-white text-sm font-bold">Site Name</label>
+											<label className="text-white text-sm font-bold">Name</label>
+											<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2 w-96" type="text" />
+										</div>
+										<div className="flex flex-col gap-1 mb-3">
+											<label className="text-white text-sm font-bold">Code</label>
 											<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
 										</div>
+										<div className="flex flex-col gap-1 mb-3">
+											<label className="text-white text-sm font-bold">Site</label>
+											<select className="dropshadow-box-25 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+												<option value="option1">Option 1</option>
+												<option value="option2">Option 2</option>
+												<option value="option3">Option 3</option>
+											</select>
+										</div>
+										<div className="flex flex-col gap-1 mb-3">
+											<button className='bg-lime-400 p-3 rounded-lg'>Set Location</button>
+										</div>
+										<div className="flex flex-col gap-1 mb-3">
+											<label className="text-white text-sm font-bold">Image</label>
+											<div className={`relative overflow-hidden bg-lime-400 rounded-lg`}>
+												{!previewImageUrl && (
+													<>
+														<input type="file" onChange={handleFileInputChange} accept="image/*" className="absolute top-0 left-0 opacity-0 cursor-pointer" />
+														<div className="cursor-pointer text-gray-600 font-semibold rounded-md p-2 shadow-md h-14 flex justify-center items-center dropshadow-box-25">Add</div>
+													</>
+												)}
+												{previewImageUrl && (
+													<div className="flex">
+														<button onClick={() => setPreviewImageUrl(null)} className="p-3 bg-red-500 font-bold text-white hover:bg-red-600 transition-all ease-in-out duration-1000">
+															<Icon path={mdiTrashCan} size={1.25} />{' '}
+														</button>
+														<img src={previewImageUrl} width="300px" />
+													</div>
+												)}
+											</div>
+										</div>
+										<div className="flex flex-col gap-1 mb-3">
+											<label className="text-white text-sm font-bold">Responsibilities</label>
+											<button onClick={onOpen} className="bg-lime-400 p-3 flex justify-center items-center rounded-lg text-gray-600">
+												<Icon path={mdiPlus} size={1.25} />
+											</button>
+											<Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered>
+												<ModalOverlay bg="none" backdropFilter="auto" backdropBlur="4px" />
+												<ModalContent>
+													<ModalHeader className="blue-swbt text-white font-bold rounded-tr-md rounded-tl-md">Responsibilities</ModalHeader>
+													<ModalCloseButton className="text-white" />
+													<ModalBody p='0' m='0' className="bg-slate-200 bg-opacity-60 ">
+														<div className="flex gap-3 p-6">
+															<div className="bg-gray-300 p-8 rounded-md dropshadow-box-25 w-full">
+																<h1 className="font-semibold text-gray-700 text-center mb-6 text-lg">Responsibility</h1>
+																<div className="input-container">
+																	{inputGenerator(11, ['Code', 'Name Default', 'English', 'German', 'Company', 'Last Name', 'First Name', 'Telephone', 'Cellular', 'Email', 'Link'], 'text')}
+																</div>
+															</div>
+															<div className="bg-gray-300 p-8 rounded-md dropshadow-box-25 w-full">
+																<h1 className="font-semibold text-gray-700 text-center mb-6 text-lg">Address</h1>
+																<div className='input-container'>
+																	{inputGenerator(4, ['Street and No', 'Zip', 'City', 'Country'], 'text')}
+																</div>
+															</div>
+															<div className="bg-gray-300 p-8 rounded-md dropshadow-box-25 w-full">
+																<h1 className="font-semibold text-gray-700 text-center mb-6 text-lg">Coordinates</h1>
+																<div className='input-container'>
+																	{inputGenerator(3, ['Latitude', 'Longitude', 'Other'], 'text')}
+																</div>
+															</div>
+														</div>
+													</ModalBody>
+												</ModalContent>
+											</Modal>
+										</div>
 									</div>
-								</TabPanel>
-								<TabPanel>
-									<p>two!</p>
-								</TabPanel>
-								<TabPanel>
-									<p>three!</p>
-								</TabPanel>
-								<TabPanel>
-									<p>four!</p>
 								</TabPanel>
 							</TabPanels>
 						</Tabs>
