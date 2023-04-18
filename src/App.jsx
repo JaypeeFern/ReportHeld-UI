@@ -5,6 +5,8 @@ import Login from './Pages/Login';
 import Sites from './Pages/Sites';
 import SitesEditGroup from './Pages/SitesEditGroup';
 import Powerplants from './Pages/Powerplants';
+import PowerPlantFeatures from './Pages/PowerPlantFeatures'
+import Protocols from './Pages/Protocols'
 
 function App() {
 	const router = createBrowserRouter(
@@ -15,6 +17,8 @@ function App() {
 					<Route path="sites" element={<Sites />} />
 					<Route path="edit-groups" element={<SitesEditGroup />} />
 					<Route path="powerplants" element={<Powerplants />} />
+					<Route path="features" element={<PowerPlantFeatures />} />
+					<Route path="protocols" element={<Protocols />} />
 				</Route>
 			</Route>
 		)

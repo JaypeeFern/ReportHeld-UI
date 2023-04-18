@@ -68,9 +68,9 @@ export default function Powerplants() {
 
 		return (
 			<div>
-				<label htmlFor={`filter-${id}`} className="block mb-2 text-gray-700">
+				{/* <label htmlFor={`filter-${id}`} className="block mb-2 text-gray-700">
 					Filter by <span className="capitalize font-bold">{id}</span>
-				</label>
+				</label> */}
 				<Select
 					id={`filter-${id}`}
 					value={filterValue}
@@ -124,7 +124,7 @@ export default function Powerplants() {
 				</div>
 			);
 		}
-		return inputElements; 
+		return inputElements;
 	};
 
 	return (
@@ -169,7 +169,7 @@ export default function Powerplants() {
 											</select>
 										</div>
 										<div className="flex flex-col gap-1 mb-3">
-											<button className='bg-lime-400 p-3 rounded-lg'>Set Location</button>
+											<button className="bg-lime-400 p-3 rounded-lg">Set Location</button>
 										</div>
 										<div className="flex flex-col gap-1 mb-3">
 											<label className="text-white text-sm font-bold">Image</label>
@@ -200,7 +200,7 @@ export default function Powerplants() {
 												<ModalContent>
 													<ModalHeader className="blue-swbt text-white font-bold rounded-tr-md rounded-tl-md">Responsibilities</ModalHeader>
 													<ModalCloseButton className="text-white" />
-													<ModalBody p='0' m='0' className="bg-slate-200 bg-opacity-60 ">
+													<ModalBody p="0" m="0" className="bg-slate-200 bg-opacity-60 ">
 														<div className="flex gap-3 p-6">
 															<div className="bg-gray-300 p-8 rounded-md dropshadow-box-25 w-full">
 																<h1 className="font-semibold text-gray-700 text-center mb-6 text-lg">Responsibility</h1>
@@ -210,15 +210,11 @@ export default function Powerplants() {
 															</div>
 															<div className="bg-gray-300 p-8 rounded-md dropshadow-box-25 w-full">
 																<h1 className="font-semibold text-gray-700 text-center mb-6 text-lg">Address</h1>
-																<div className='input-container'>
-																	{inputGenerator(4, ['Street and No', 'Zip', 'City', 'Country'], 'text')}
-																</div>
+																<div className="input-container">{inputGenerator(4, ['Street and No', 'Zip', 'City', 'Country'], 'text')}</div>
 															</div>
 															<div className="bg-gray-300 p-8 rounded-md dropshadow-box-25 w-full">
 																<h1 className="font-semibold text-gray-700 text-center mb-6 text-lg">Coordinates</h1>
-																<div className='input-container'>
-																	{inputGenerator(3, ['Latitude', 'Longitude', 'Other'], 'text')}
-																</div>
+																<div className="input-container">{inputGenerator(3, ['Latitude', 'Longitude', 'Other'], 'text')}</div>
 															</div>
 														</div>
 													</ModalBody>
@@ -245,7 +241,7 @@ export default function Powerplants() {
 				</div>
 
 				<div className="table-container flex flex-col text-center">
-					<div className="relative">
+					<div className="relative flex gap-2">
 						<input
 							className={`p-2 ${open ? 'rounded-lg dropshadow-box-25 transition-all duration-300 delay-0 ease-in-out' : 'rounded-tl-lg rounded-tr-lg'} w-full`}
 							type="text"
@@ -253,11 +249,22 @@ export default function Powerplants() {
 							onChange={e => setGlobalFilter(e.target.value)}
 							placeholder=" Search by name..."
 						/>
-						<button onClick={handleFilterShow} className={`absolute right-0 top-0 bg-gray-400 p-2 ${open ? 'rounded-tr-lg rounded-br-lg text-gray-500' : 'rounded-tr-lg'} `}>
+
+						{headerGroups.map(headerGroup => (
+							<div {...headerGroup.getHeaderGroupProps()}>
+								{headerGroup.headers.map(column => (
+									<div key={column.id} className="flex gap-2 bg-gray-200 rounded-lg">
+										<div className="">{column.id === 'name' ? <SelectColumnFilter column={column} setFilter={column.setFilter} /> : null}</div>
+									</div>
+								))}
+							</div>
+						))}
+
+						{/* <button onClick={handleFilterShow} className={`absolute right-0 top-0 bg-gray-400 p-2 ${open ? 'rounded-tr-lg rounded-br-lg text-gray-500' : 'rounded-tr-lg'} `}>
 							<Icon path={mdiFilterMenu} size={1} />
-						</button>
+						</button> */}
 					</div>
-					<div className={`${open ? 'opacity-0 sr-only' : 'opacity-100'} bg-gray-400 p-5 rounded-bl-lg rounded-br-lg transition-all duration-1000 ease-in-out dropshadow-box-25`}>
+					{/* <div className={`${open ? 'opacity-0 sr-only' : 'opacity-100'} bg-gray-400 p-5 rounded-bl-lg rounded-br-lg transition-all duration-1000 ease-in-out dropshadow-box-25`}>
 						{headerGroups.map(headerGroup => (
 							<div {...headerGroup.getHeaderGroupProps()}>
 								{headerGroup.headers.map(column => (
@@ -267,7 +274,7 @@ export default function Powerplants() {
 								))}
 							</div>
 						))}
-					</div>
+					</div> */}
 					{page.length === 0 ? (
 						<div className="no-data-message my-16">No data available</div>
 					) : (
