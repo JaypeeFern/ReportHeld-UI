@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from '@mdi/react';
-import { mdiTrashCan, mdiFilterMenu, mdiFormatListChecks } from '@mdi/js';
+import { mdiTrashCan, mdiFilterMenu, mdiFormatListChecks, mdiLock,  mdiLockOpen } from '@mdi/js';
 import { Select } from '@chakra-ui/react';
 import { useTable, usePagination, useGlobalFilter, useSortBy, useFilters } from 'react-table';
 
@@ -14,7 +14,7 @@ export default function Protocols() {
 				basedOn: `Based on ${i}`,
 				date: '00.00.0000',
 				owner: 'John Paul',
-                status: '',
+                status: 'Active',
 				action: (
 					<div className="flex gap-3 justify-center">
 						<button className="bg-red-500 hover:bg-red-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs">
@@ -37,6 +37,7 @@ export default function Protocols() {
 			{ Header: 'Based On', accessor: 'basedOn' },
 			{ Header: 'Date', accessor: 'date' },
 			{ Header: 'Owner', accessor: 'owner' },
+			{ Header: 'Status', accessor: 'status' },
 			{ Header: '', accessor: 'action', disableSortBy: true }
 		],
 		[]
