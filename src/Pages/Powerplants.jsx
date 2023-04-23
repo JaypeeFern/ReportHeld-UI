@@ -15,7 +15,7 @@ export default function Powerplants() {
 				address: 'Freistaat Bayern',
 				action: (
 					<div className="flex gap-3 justify-center">
-						<Link to="/powerplants" className="bg-blue-500 hover:bg-blue-700 p-2 rounded-lg text-white font-semibold flex gap-1 items-center dropshadow-box-25 text-xs">
+						<Link to="/protocols" className="bg-blue-500 hover:bg-blue-700 p-2 rounded-lg text-white font-semibold flex gap-1 items-center dropshadow-box-25 text-xs">
 							Protocols <Icon path={mdiOpenInNew} size={1} />{' '}
 						</Link>
 						<Link to="/edit-groups" className="bg-green-500 hover:bg-green-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs">
