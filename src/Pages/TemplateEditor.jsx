@@ -81,7 +81,7 @@ export default function TemplateEditor() {
 					</div>
 				</div>
 				<div className="accordion relative">
-					<Accordion allowToggle allowMultiple className="absolute  w-full bg-gray-400 bg-opacity-40">
+					<Accordion allowMultiple className="absolute  w-full bg-gray-400 bg-opacity-40">
 						{generateRandomData(
 							8,
 							['Base Job Template', 'Gas', 'Gas und Wasser', 'Netzleitstelle', 'SNH', 'Strom', 'Unassigned', 'Wasser'],
