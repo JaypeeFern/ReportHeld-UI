@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
+import PageNotFound from './Util/PageNotFound';
 import IndexLayout from './Layouts/IndexLayout';
 import Login from './Pages/Login';
 import Sites from './Pages/Sites';
@@ -28,6 +29,7 @@ function App() {
 						<Route path='template-variants' element={<TemplateVariants />} />
 						<Route path='template-advanced' element={<TemplateAdvanceEdit />} />
 					</Route>
+					<Route path='*' element={<PageNotFound />} />
 				</Route>
 			</Route>
 		)

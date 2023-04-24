@@ -92,7 +92,7 @@ export default function Protocols() {
 
 	return (
 		<>
-			<div className="flex-grow bg-gray-300 me-7 rounded-tr-xl rounded-br-xl border border-slate-400 p-7">
+			<div className="flex-grow bg-gray-300 me-7 rounded-lg border border-slate-400 p-7">
 				<div className="w-full flex mb-4 gap-5">
 					<div className="flex-grow table-header-color p-2 rounded-lg text-gray-600 font-sans text-lg dropshadow-box-25">
 						<div className="flex gap-1 items-center">

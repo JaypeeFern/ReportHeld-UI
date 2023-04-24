@@ -9,8 +9,8 @@ export default function IndexLayout() {
 
 	return (
 		<>
-			<div className="flex-grow bg-gray-300 me-7 rounded-xl border border-slate-400 p-7">
-				<div className="w-full flex mb-4 gap-5">
+			<div className="flex w-full flex-col bg-gray-300 me-7 rounded-xl border border-slate-400 p-7">
+				<div className="mb-4 gap-5">
 					<div className="flex-grow table-header-color p-2 rounded-lg text-gray-600 font-sans dropshadow-box-25">
 						<div className="flex gap-2 items-center p-5 justify-start">
 							<Icon path={mdiFormatSize} size={1.5} />
@@ -45,7 +45,7 @@ export default function IndexLayout() {
 					</div>
 				</div>
 				{location.pathname !== '/templates/template-editor' && location.pathname !== '/templates/template-variants' && location.pathname !== '/templates/template-advanced' && (
-					<div className="flex items-center h-screen">
+					<div className="flex-grow items-center">
 						<nav className="grid grid-cols-3 gap-10 p-16 place-items-center w-full h-full">
 							<NavLink to="template-editor" className='w-full'>
 								<button className="bg-gray-400 hover:bg-lime-300 w-full hover:text-gray-700  transition-all duration-300 bg-opacity-70 dropshadow-box-25 rounded-lg text-3xl p-36 text-white font-bold">
