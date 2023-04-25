@@ -4,9 +4,32 @@ import { Link } from 'react-router-dom';
 import { mdiCloseBox, mdiMapMarker, mdiSquareEditOutline, mdiTrashCan, mdiOpenInNew, mdiChevronLeft } from '@mdi/js';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
-import { ChevronLeft } from '@mui/icons-material';
+import { toast } from 'react-toastify';
 
 export default function Sites() {
+	const add = () =>
+		toast.success('Succesfully added', {
+			position: 'top-right',
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'colored'
+		});
+	const del = () =>
+		toast.error('Sucessfully deleted', {
+			position: 'top-right',
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'colored'
+		});
+
 	const generateRandomData = count => {
 		const data = [];
 		for (let i = 1; i <= count; i++) {
@@ -22,7 +45,7 @@ export default function Sites() {
 							{' '}
 							<Icon path={mdiSquareEditOutline} size={1} />{' '}
 						</Link>
-						<button className="bg-red-500 hover:bg-red-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs">
+						<button onClick={del} className="bg-red-500 hover:bg-red-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs">
 							{' '}
 							<Icon path={mdiTrashCan} size={1} />{' '}
 						</button>
@@ -66,7 +89,9 @@ export default function Sites() {
 					<div className="bg-black bg-opacity-30 h-16 rounded-tl-xl">
 						<div className="flex justify-between items-center h-16 mx-3">
 							<div className="left flex gap-2 ms-4">
-								<button className="bg-green-500 hover:bg-green-700 rounded-lg font-semibold text-white p-2 text-sm w-20  dropshadow-box-25">Add Site</button>
+								<button onClick={add} className="bg-green-500 hover:bg-green-700 rounded-lg font-semibold text-white p-2 text-sm w-20  dropshadow-box-25">
+									Add Site
+								</button>
 								<button className="bg-red-500 hover:bg-red-700 rounded-lg font-semibold text-white p-2 text-sm w-20 dropshadow-box-25">Cancel</button>
 							</div>
 							<div className="right flex gap-2 items-center">
