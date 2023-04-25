@@ -1,8 +1,8 @@
 import React from 'react';
 import Icon from '@mdi/react';
-import { mdiChartSankeyVariant, mdiChevronRight, mdiTrashCan, mdiFilterMenu, mdiFormatListChecks, mdiLock, mdiLockOpen } from '@mdi/js';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Switch, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { mdiChartSankeyVariant, mdiChevronRight, mdiFilterMenu } from '@mdi/js';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Switch } from '@chakra-ui/react';
+import { Link, useLocation } from 'react-router-dom';
 import { useTable, usePagination, useGlobalFilter, useSortBy, useFilters } from 'react-table';
 import { Select } from '@chakra-ui/react';
 
@@ -86,6 +86,8 @@ export default function TemplateVariants() {
 		setOpen(prevState => !prevState);
 	}
 
+	const location = useLocation();
+	
 	return (
 		<>
 			<div className="flex-grow bg-gray-300 me-7 rounded-lg border border-slate-400 p-7">
@@ -102,7 +104,7 @@ export default function TemplateVariants() {
 											</Link>
 										</BreadcrumbItem>
 										<BreadcrumbItem>
-											<BreadcrumbLink>Variants</BreadcrumbLink>
+											<BreadcrumbLink>{location.pathname === '/templates/template-advanced' ? 'Advanced Edit' : 'Variants'}</BreadcrumbLink>
 										</BreadcrumbItem>
 									</Breadcrumb>
 								</div>
