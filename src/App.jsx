@@ -13,6 +13,7 @@ import TemplateEditor from './Pages/TemplateEditor';
 import TemplateVariants from './Pages/TemplateVariants';
 import TemplateAdvanceEdit from './Pages/TemplateAdvanceEdit';
 import Variants from './Pages/Variants';
+import ItemTypeDefinitions from './Pages/ItemTypeDefinitions';
 
 function App() {
 	const router = createBrowserRouter(
@@ -31,6 +32,7 @@ function App() {
 						<Route path='template-advanced' element={<TemplateAdvanceEdit />} />
 					</Route>
 					<Route path="variants" element={<Variants />} />
+					<Route path="definitions" element={<ItemTypeDefinitions />} />
 					<Route path='*' element={<PageNotFound />} />
 				</Route>
 			</Route>
