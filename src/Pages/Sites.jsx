@@ -6,7 +6,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
 import { toast } from 'react-toastify';
 
-export default function Sites() {
+export default function Sites({show, handleHide}) {
 	const add = () =>
 		toast.success('Succesfully added', {
 			position: 'top-right',
@@ -35,7 +35,7 @@ export default function Sites() {
 		for (let i = 1; i <= count; i++) {
 			data.push({
 				name: `Powerplant ${i}`,
-				address: 'Luebeckertordamm 62, Kirchensittenbach, Freistaat Bayern',
+				address: 'Freistaat Bayern',
 				action: (
 					<div className="flex gap-3 justify-center">
 						<Link to="/powerplants" className="bg-blue-500 hover:bg-blue-700 p-2 rounded-lg text-white font-semibold flex gap-1 items-center dropshadow-box-25 text-xs">
@@ -60,10 +60,10 @@ export default function Sites() {
 
 	const columns = React.useMemo(
 		() => [
-			{ Header: '', accessor: 'img', disableSortBy: true },
+			{ Header: 'Image', accessor: 'img', disableSortBy: true },
 			{ Header: 'Name', accessor: 'name' },
 			{ Header: 'Address', accessor: 'address' },
-			{ Header: '', accessor: 'action', disableSortBy: true }
+			{ Header: 'Action', accessor: 'action', disableSortBy: true }
 		],
 		[]
 	);
@@ -76,11 +76,6 @@ export default function Sites() {
 	);
 
 	const { pageIndex, globalFilter } = state; // Get current state values
-
-	const [show, setShow] = React.useState(true);
-	function handleHide() {
-		setShow(prevState => !prevState);
-	}
 
 	return (
 		<>
@@ -102,9 +97,9 @@ export default function Sites() {
 							</div>
 						</div>
 						<div className="input py-5 px-7 ">
-							<Tabs variant="unstyled">
+							<Tabs size='sm' variant="unstyled">
 								<TabList className="bg-slate-400 p-1 rounded-lg bg-opacity-30 text-white">
-									<Tab fontSize="20-px" className="rounded-lg" _selected={{ color: 'white', bg: '#01ABE9' }}>
+									<Tab className="rounded-lg" _selected={{ color: 'white', bg: '#01ABE9' }}>
 										Site
 									</Tab>
 									<Tab className="rounded-lg" _selected={{ color: 'white', bg: '#01ABE9' }}>
@@ -162,7 +157,7 @@ export default function Sites() {
 				</div>
 			)}
 
-			<div className="flex-grow bg-gray-300 me-7 rounded-tr-xl rounded-br-xl border border-slate-400 p-7">
+			<div className={`flex-grow flex flex-col bg-gray-300 me-7 ${show ? 'rounded-tr-xl rounded-br-xl' : 'rounded-xl'} border border-slate-400 p-7`}>
 				<div className="w-full flex mb-4 gap-5">
 					{!show && (
 						<div className="table-header-color flex items-center px-4 rounded-lg hover:bg-lime-400 hover:bg-opacity-80 dropshadow-box-25">
@@ -181,13 +176,13 @@ export default function Sites() {
 						<button className="font-bold text-white ">Fix Permission</button>
 					</div>
 				</div>
-				<div className="table-container flex flex-col text-center">
+				<div className="table-container flex h-full flex-col text-center">
 					<input className="mb-4 p-2 rounded-lg dropshadow-box-25" type="text" value={globalFilter || ''} onChange={e => setGlobalFilter(e.target.value)} placeholder=" Search by name..." />
 					{page.length === 0 ? (
 						<div className="no-data-message my-16">No data available</div>
 					) : (
-						<div className="overflow-hidden rounded-xl bg-gray-300 mb-4 dropshadow-box-25">
-							<table {...getTableProps()} className="border-collapse w-full">
+						<div className="overflow-hidden rounded-xl bg-gray-300 mb-4 dropshadow-box-25 h-full">
+							<table {...getTableProps()} className="border-collapse w-full h-full">
 								<thead>
 									{headerGroups.map(headerGroup => (
 										<tr {...headerGroup.getHeaderGroupProps()} className="table-row">

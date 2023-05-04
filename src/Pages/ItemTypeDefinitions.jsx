@@ -6,7 +6,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
 import { ChevronLeft } from '@mui/icons-material';
 
-export default function ItemTypeDefinitions() {
+export default function ItemTypeDefinitions({show, handleHide}) {
 	const generateRandomData = count => {
 		const data = [];
 		for (let i = 1; i <= count; i++) {
@@ -50,11 +50,6 @@ export default function ItemTypeDefinitions() {
 
 	const { pageIndex, globalFilter } = state; // Get current state values
 
-	const [show, setShow] = React.useState(true);
-	function handleHide() {
-		setShow(prevState => !prevState);
-	}
-
 	return (
 		<>
 			{show && (
@@ -77,7 +72,7 @@ export default function ItemTypeDefinitions() {
 				</div>
 			)}
 
-			<div className="flex-grow bg-gray-300 me-7 rounded-tr-xl rounded-br-xl border border-slate-400 p-7">
+			<div className={`flex-grow flex flex-col bg-gray-300 me-7 ${show ? 'rounded-tr-xl rounded-br-xl' : 'rounded-xl'} border border-slate-400 p-7`}>
 				<div className="w-full flex mb-4 gap-5">
 					{!show && (
 						<div className="table-header-color flex items-center px-4 rounded-lg hover:bg-lime-400 hover:bg-opacity-80 dropshadow-box-25">
@@ -93,13 +88,13 @@ export default function ItemTypeDefinitions() {
 						</div>
 					</div>
 				</div>
-				<div className="table-container flex flex-col text-center">
+				<div className="table-container flex flex-col text-center h-full">
 					<input className="mb-4 p-2 rounded-lg dropshadow-box-25" type="text" value={globalFilter || ''} onChange={e => setGlobalFilter(e.target.value)} placeholder=" Search by name..." />
 					{page.length === 0 ? (
 						<div className="no-data-message my-16">No data available</div>
 					) : (
-						<div className="overflow-hidden rounded-xl bg-gray-300 mb-4 dropshadow-box-25">
-							<table {...getTableProps()} className="border-collapse w-full">
+						<div className="overflow-hidden rounded-xl bg-gray-300 mb-4 dropshadow-box-25 h-full">
+							<table {...getTableProps()} className="border-collapse w-full h-full">
 								<thead>
 									{headerGroups.map(headerGroup => (
 										<tr {...headerGroup.getHeaderGroupProps()} className="table-row">

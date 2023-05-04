@@ -47,7 +47,7 @@ export default function IndexLayout() {
 					</div>
 					{location.pathname !== '/templates/template-editor' && location.pathname !== '/templates/template-variants' && location.pathname !== '/templates/template-advanced' && (
 						<div className="flex-grow items-center">
-							<nav className="grid xs:grid-cols-auto xl:grid-cols-3 mx gap-10 p-16 place-items-center w-full h-full">
+							<nav className="grid xs:grid-cols-auto xl:grid-cols-2 2xl:grid-cols-3 gap-10 p-16 place-items-center w-full h-full">
 								<NavLink to="template-editor" className="w-full">
 									<button className="bg-gray-400 hover:bg-lime-300 w-full hover:text-gray-700  transition-all duration-300 bg-opacity-70 dropshadow-box-25 rounded-lg text-3xl p-36 text-white font-bold">
 										Edit

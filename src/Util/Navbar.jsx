@@ -107,8 +107,8 @@ export default function Navbar() {
 						</Modal>
 					</div>
 					<div className="flex gap-2 items-center text-white">
-						<span className="text-xs">Administrator</span>
-						<Icon path={mdiAccountCircle} size={1} />
+						<span className="text-md">Administrator</span>
+						<Icon path={mdiAccountCircle} size={1.2} />
 					</div>
 				</div>
 			</div>

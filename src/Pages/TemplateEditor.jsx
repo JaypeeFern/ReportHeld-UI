@@ -20,7 +20,7 @@ export default function TemplateEditor() {
 					</h2>
 					<AccordionPanel padding={0}>
 						<div className="table-container flex flex-col text-center">
-							<div className=" bg-gray-400 bg-opacity-40 cursor-pointer hover:bg-gray-500 hover:bg-opacity-30 p-3 grid grid-cols-6 place-items-center text-xs relative">
+							<div className=" bg-gray-400 bg-opacity-40 cursor-pointer hover:bg-gray-500 hover:bg-opacity-30 p-3 grid grid-cols-6 place-items-center text-sm relative">
 								<span>{templateName}</span>
 								<span>{templateItems}</span>
 								<span>{templateProtocols}</span>

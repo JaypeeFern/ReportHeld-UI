@@ -1,19 +1,19 @@
-import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
+import BoltIcon from '@mui/icons-material/Bolt';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import ChecklistIcon from '@mui/icons-material/Checklist';
 import FormatSizeOutlinedIcon from '@mui/icons-material/FormatSizeOutlined';
 import AltRouteOutlinedIcon from '@mui/icons-material/AltRouteOutlined';
-import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
-import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
-import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
-import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import GroupIcon from '@mui/icons-material/Group';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 
 export const views = {
 	sites: {
 		name: 'Sites',
-		icon:  <LocationOnOutlinedIcon fontSize='large'/>,
+		icon:  <LocationOnIcon fontSize='large'/>,
 		path: 'sites',
 		borderBottom: true,
 		radiusTr: true,
@@ -21,7 +21,7 @@ export const views = {
 	},
 	powerplants: {
 		name: 'Power Plants',
-		icon: <BoltOutlinedIcon fontSize='large'/>,
+		icon: <BoltIcon fontSize='large'/>,
 		path: 'powerplants',
 		borderBottom: true
 	},
@@ -33,7 +33,7 @@ export const views = {
 	},
 	protocols: {
 		name: 'Protocols',
-		icon: <ChecklistOutlinedIcon fontSize='large'/>,
+		icon: <ChecklistIcon fontSize='large'/>,
 		path: 'protocols',
 		borderBottom: true
 	},
@@ -57,31 +57,31 @@ export const views = {
 	},
 	users: {
 		name: 'Users',
-		icon: <PersonAddAltOutlinedIcon fontSize='large'/>,
+		icon: <PersonAddIcon fontSize='large'/>,
 		path: 'users',
 		borderBottom: true
 	},
 	groups: {
 		name: 'Groups',
-		icon: <GroupOutlinedIcon fontSize='large'/>,
+		icon: <GroupIcon fontSize='large'/>,
 		path: 'groups',
 		borderBottom: true
 	},
 	feedback: {
 		name: 'Feedback',
-		icon: <FeedbackOutlinedIcon fontSize='large'/>,
+		icon: <FeedbackIcon fontSize='large'/>,
 		path: 'feedback',
 		borderBottom: true
 	},
 	feedBackResults: {
 		name: 'Feedback Results',
-		icon: <QuestionAnswerOutlinedIcon fontSize='large'/>,
+		icon: <QuestionAnswerIcon fontSize='large'/>,
 		path: 'feedback-results',
 		borderBottom: true
 	},
 	profile: {
 		name: 'Profile',
-		icon: <AccountCircleOutlinedIcon fontSize='large'/>,
+		icon: <AccountCircleIcon fontSize='large'/>,
 		path: 'profile',
 		borderBottom: true,
 		radiusTr: false,

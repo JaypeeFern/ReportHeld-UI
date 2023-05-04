@@ -92,7 +92,7 @@ export default function Protocols() {
 
 	return (
 		<>
-			<div className="flex-grow bg-gray-300 me-7 rounded-lg border border-slate-400 p-7">
+			<div className="flex-grow flex flex-col bg-gray-300 me-7 rounded-lg border border-slate-400 p-7">
 				<div className="w-full flex mb-4 gap-5">
 					<div className="flex-grow table-header-color p-2 rounded-lg text-gray-600 font-sans text-lg dropshadow-box-25">
 						<div className="flex gap-1 items-center">
@@ -103,7 +103,7 @@ export default function Protocols() {
 					{/* <div className="flex items-center px-16 rounded-lg dropshadow-box-25"></div> */}
 				</div>
 
-				<div className="table-container flex flex-col text-center">
+				<div className="table-container flex flex-col text-center h-full">
 					<div className="relative">
 						<input
 							className={`p-2 ${open ? 'rounded-lg dropshadow-box-25 transition-all duration-300 delay-0 ease-in-out' : 'rounded-tl-lg rounded-tr-lg'} w-full`}
@@ -130,8 +130,8 @@ export default function Protocols() {
 					{page.length === 0 ? (
 						<div className="no-data-message my-16">No data available</div>
 					) : (
-						<div className="overflow-hidden rounded-xl bg-gray-300 mb-4 mt-4 dropshadow-box-25">
-							<table {...getTableProps()} className="border-collapse w-full">
+						<div className="overflow-hidden rounded-xl bg-gray-300 mb-4 mt-4 dropshadow-box-25 h-full">
+							<table {...getTableProps()} className="border-collapse w-full h-full">
 								<thead>
 									{headerGroups.map(headerGroup => (
 										<tr {...headerGroup.getHeaderGroupProps()} className="table-row">

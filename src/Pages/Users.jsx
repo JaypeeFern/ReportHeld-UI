@@ -1,26 +1,20 @@
 import React from 'react';
 import Icon from '@mdi/react';
-import { Link } from 'react-router-dom';
-import { mdiCloseBox, mdiTrashCan, mdiChevronLeft, mdiChartSankeyVariant, mdiAlert } from '@mdi/js';
+import { mdiCloseBox, mdiAccountPlus, mdiChevronLeft } from '@mdi/js';
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
 
-export default function Variants({show, handleHide}) {
+export default function User({ show, handleHide }) {
 	const generateRandomData = count => {
 		const data = [];
 		for (let i = 1; i <= count; i++) {
 			data.push({
-				defaultname: `Default ${i}`,
-				enname: 'English Name',
-				dename: 'German Name',
-				inuse: 'Yes',
-				action: (
-					<div className="flex gap-3 justify-center">
-						<button className="bg-red-500 hover:bg-red-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs">
-							{' '}
-							<Icon path={mdiTrashCan} size={1} />{' '}
-						</button>
-					</div>
-				)
+				username: `User_${i}`,
+				firstname: 'Test',
+				lastname: 'User',
+				primarygroup: 'SWBT',
+				email: 'test@test.com',
+				phone: '0000000000'
 			});
 		}
 		return data;
@@ -30,11 +24,12 @@ export default function Variants({show, handleHide}) {
 
 	const columns = React.useMemo(
 		() => [
-			{ Header: 'Default Name', accessor: 'defaultname' },
-			{ Header: 'EN Name', accessor: 'enname' },
-			{ Header: 'DE Name', accessor: 'dename' },
-			{ Header: 'Inuse', accessor: 'inuse' },
-			{ Header: '', accessor: 'action', disableSortBy: true }
+			{ Header: 'Username', accessor: 'username' },
+			{ Header: 'First Name', accessor: 'firstname' },
+			{ Header: 'Last Name', accessor: 'lastname' },
+			{ Header: 'Primary Group', accessor: 'primarygroup' },
+			{ Header: 'Email', accessor: 'email' },
+			{ Header: 'Phone', accessor: 'phone', disableSortBy: true }
 		],
 		[]
 	);
@@ -55,7 +50,7 @@ export default function Variants({show, handleHide}) {
 					<div className="bg-black bg-opacity-30 h-16 rounded-tl-xl">
 						<div className="flex justify-between items-center h-16 mx-3">
 							<div className="left flex gap-2 ms-4">
-								<button className="bg-green-500 hover:bg-green-700 rounded-lg font-semibold text-white p-2 text-sm w-20  dropshadow-box-25">Add</button>
+								<button className="bg-green-500 hover:bg-green-700 rounded-lg font-semibold text-white p-2 text-sm w-20  dropshadow-box-25">Add User</button>
 								<button className="bg-red-500 hover:bg-red-700 rounded-lg font-semibold text-white p-2 text-sm w-20 dropshadow-box-25">Cancel</button>
 							</div>
 							<div className="right flex gap-2 items-center">
@@ -64,27 +59,67 @@ export default function Variants({show, handleHide}) {
 								</button>
 							</div>
 						</div>
-						<div className="input py-5 px-10 flex flex-col gap-4">
-							<div className="flex relative gap-6 items-center py-6 px-4 rounded-md bg-gray-300 mb-6 box-dropshadow-box-25">
-								<div className="flex justify-center items-center flex-col bg-gray-100 bg-opacity-70ww rounded-tl-lg rounded-bl-lg absolute h-full p-2 left-0">
-									<Icon path={mdiAlert} size={2.5} color="#E86B6B" />
-									<span className='font-bold text-red-400'>Warning</span>
+						<div className="input py-5 px-12 flex flex-col gap-2">
+							<div className="grid grid-cols-2 gap-2 w-80">
+								<div className="flex flex-col gap-1 mb-3">
+									<label className="text-white text-sm font-bold">Username</label>
+									<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
 								</div>
-								<span className="w-64 text-justify font-semibold ms-20 text-sm">
-									The template name will be replaced by the name of the protocol variant, so please make sure to select a template-specific name.
-								</span>
+								<div className="flex flex-col gap-1 mb-3">
+									<label className="text-white text-sm font-bold">Password</label>
+									<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="password" />
+								</div>
+							</div>
+							<div className="grid grid-cols-2 gap-2 w-80">
+								<div className="flex flex-col gap-1 mb-3">
+									<label className="text-white text-sm font-bold">First Name</label>
+									<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
+								</div>
+								<div className="flex flex-col gap-1 mb-3">
+									<label className="text-white text-sm font-bold">Last Name</label>
+									<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
+								</div>
+							</div>
+							<div className="flex flex-col gap-1 mb-3 w-full">
+								<label className="text-white text-sm font-bold">Date of Birth</label>
+								<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="date" />
+							</div>
+							<div className="grid grid-cols-2 gap-2 w-80">
+								<div className="flex flex-col gap-1 mb-3">
+									<label className="text-white text-sm font-bold">Email</label>
+									<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
+								</div>
+								<div className="flex flex-col gap-1 mb-3">
+									<label className="text-white text-sm font-bold">Phone</label>
+									<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
+								</div>
 							</div>
 							<div className="flex flex-col gap-1 mb-3">
-								<label className="text-white text-sm font-bold">Name Default</label>
-								<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
+								<label className="text-white text-sm font-bold">Primary Group</label>
+								<select className="dropshadow-box-25 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+									<option value="option1">---</option>
+									<option value="option2">Option 2</option>
+									<option value="option3">Option 3</option>
+								</select>
 							</div>
 							<div className="flex flex-col gap-1 mb-3">
-								<label className="text-white text-sm font-bold">Name English</label>
-								<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
+								<label className="text-white text-sm font-bold">User Configuration Presets</label>
+								<select className="dropshadow-box-25 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+									<option value="option1">General User</option>
+									<option value="option2">Option 2</option>
+									<option value="option3">Option 3</option>
+								</select>
 							</div>
 							<div className="flex flex-col gap-1 mb-3">
-								<label className="text-white text-sm font-bold">Name German</label>
-								<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
+								<label className="text-white text-sm font-bold">Groups</label>
+								<select className="dropshadow-box-25 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+									<option value="option1">Just Alexander</option>
+									<option value="option2">Option 2</option>
+									<option value="option3">Option 3</option>
+								</select>
+							</div>
+							<div className="flex flex-col gap-1 mb-3">
+								<button className="bg-lime-400 p-3 flex justify-center items-center rounded-lg text-gray-600 mt-3">Disable User</button>
 							</div>
 						</div>
 					</div>
@@ -102,12 +137,12 @@ export default function Variants({show, handleHide}) {
 					)}
 					<div className="flex-grow table-header-color p-2 rounded-lg text-gray-600 font-sans text-lg dropshadow-box-25">
 						<div className="flex gap-1 items-center">
-							<Icon path={mdiChartSankeyVariant} size={1} />
-							<h1>Variants</h1>
+							<Icon path={mdiAccountPlus} size={1} />
+							<h1>Users</h1>
 						</div>
 					</div>
 				</div>
-				<div className="table-container flex flex-col text-center h-full">
+				<div className="table-container h-full flex flex-col text-center">
 					<input className="mb-4 p-2 rounded-lg dropshadow-box-25" type="text" value={globalFilter || ''} onChange={e => setGlobalFilter(e.target.value)} placeholder=" Search by name..." />
 					{page.length === 0 ? (
 						<div className="no-data-message my-16">No data available</div>
