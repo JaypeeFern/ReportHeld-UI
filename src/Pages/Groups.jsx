@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Flex, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton } from '@chakra-ui/react';
+import { Box, Text, Flex, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag } from '@chakra-ui/react';
 import Icon from '@mdi/react';
 import { mdiAccountMultiple, mdiSquareEditOutline, mdiChevronLeft, mdiCloseBox } from '@mdi/js';
 import { Link } from 'react-router-dom';
@@ -42,10 +42,7 @@ export default function Groups({ show, handleHide }) {
 
 	const { pageIndex, globalFilter } = state; // Get current state values
 
-	const [tableShow, setTableShow] = React.useState(false);
-	function handleTableShow() {
-		setTableShow(prevState => !prevState);
-	}
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
 		<>
@@ -111,8 +108,8 @@ export default function Groups({ show, handleHide }) {
 				</HStack>
 				<Box className="flex flex-col h-full">
 					<Flex justify="left" className="h-full">
-						<VStack spacing={0} flex={tableShow ? 0 : 1}>
-							<TableContainer backgroundColor="gray.200" className="flex-grow rounded-tl-lg border border-black border-opacity-30 h-full w-full">
+						<VStack spacing={0} flex={1}>
+							<TableContainer backgroundColor="gray.200" className={`flex-grow border rounded-tl-lg rounded-tr-lg border-black border-opacity-30 h-full w-full`}>
 								<Table {...getTableProps()} variant="unstyled" size="lg" className="h-full">
 									<Thead className="table-header-color border-b border-black border-opacity-50">
 										{headerGroups.map(headerGroup => (
@@ -140,7 +137,7 @@ export default function Groups({ show, handleHide }) {
 											return (
 												<Tr {...row.getRowProps()} backgroundColor={row.index % 2 === 0 ? '#ECEBEA' : '#FEFDFD'} className="hover:bg-slate-300 cursor-pointer transition-all duration-150 ease-in-out">
 													{row.cells.map(cell => (
-														<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} onClick={handleTableShow} className="focus:bg-gray-600 focus:bg-opacity-30">
+														<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} onClick={onOpen} className="focus:bg-gray-600 focus:bg-opacity-30 border-b border-slate-700 border-opacity-50">
 															{cell.render('Cell')}
 														</Td>
 													))}
@@ -148,7 +145,7 @@ export default function Groups({ show, handleHide }) {
 											);
 										})}
 									</Tbody>
-									<Tfoot className="table-header-color border-t border-b border-b-gray-500 border-black border-opacity-50">
+									{/* <Tfoot className="table-header-color border-t border-b-gray-500 border-black border-opacity-50">
 										{headerGroups.map(headerGroup => (
 											<Tr {...headerGroup.getHeaderGroupProps()}>
 												{headerGroup.headers.map(column => (
@@ -158,10 +155,10 @@ export default function Groups({ show, handleHide }) {
 												))}
 											</Tr>
 										))}
-									</Tfoot>
+									</Tfoot> */}
 								</Table>
 							</TableContainer>
-							<Flex gap={2} className="pagination-container flex gap-10 justify-center bg-gray-400 bg-opacity-50 p-3 rounded-bl-md w-full">
+							<Flex gap={2} className="pagination-container flex gap-10 justify-center bg-gray-400 bg-opacity-50 p-3 rounded-bl-md rounded-br-md w-full border-l border-r border-b border-black border-opacity-20">
 								<Button size="sm" bg="transparent" onClick={() => previousPage()} disabled={!canPreviousPage}>
 									Previous
 								</Button>
@@ -176,7 +173,79 @@ export default function Groups({ show, handleHide }) {
 								</Button>
 							</Flex>
 						</VStack>
-						{tableShow && <Box flex={1} className=" bg-white"></Box>}
+
+						<Drawer placement="top" onClose={onClose} isOpen={isOpen}>
+							<DrawerOverlay />
+							<DrawerContent>
+								<DrawerHeader borderBottomWidth="1px">
+									<Flex gap={3}>
+										<Text fontWeight="light">Selected Group:</Text>
+										<Text flex={1}>1@stadtwerke-bayreuth.de</Text>
+										<Tag className="flex gap-2">
+											<Text>Users:</Text>
+											<Text fontWeight="bold">99</Text>
+										</Tag>
+									</Flex>
+								</DrawerHeader>
+								<DrawerBody>
+									<TableContainer>
+										<Table variant="simple">
+											<Thead>
+												<Tr>
+													<Th>To convert</Th>
+													<Th>into</Th>
+													<Th isNumeric>multiply by</Th>
+												</Tr>
+											</Thead>
+											<Tbody>
+												<Tr>
+													<Td>inches</Td>
+													<Td>millimetres (mm)</Td>
+													<Td isNumeric>25.4</Td>
+												</Tr>
+												<Tr>
+													<Td>feet</Td>
+													<Td>centimetres (cm)</Td>
+													<Td isNumeric>30.48</Td>
+												</Tr>
+												<Tr>
+													<Td>yards</Td>
+													<Td>metres (m)</Td>
+													<Td isNumeric>0.91444</Td>
+												</Tr>
+											</Tbody>
+											<Tfoot>
+												<Tr>
+													<Th>To convert</Th>
+													<Th>into</Th>
+													<Th isNumeric>multiply by</Th>
+												</Tr>
+											</Tfoot>
+										</Table>
+									</TableContainer>
+									;
+								</DrawerBody>
+							</DrawerContent>
+						</Drawer>
+
+						{/* <Box flex={1} className=" bg-white border-t border-b border-r border-opacity-50 border-black" overflow="clip">
+							<TableContainer>
+								<Table className="table-header-color" size="lg" variant="simple">
+									<Thead>
+										<Tr>
+											<Th>User Name</Th>
+											<Th>First Name</Th>
+											<Th>Last Name</Th>
+											<Th>Primary Group</Th>
+											<Th>Email</Th>
+										</Tr>
+									</Thead>
+									<Tbody>
+										<Tr></Tr>
+									</Tbody>
+								</Table>
+							</TableContainer>
+						</Box> */}
 					</Flex>
 				</Box>
 			</Box>
