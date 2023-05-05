@@ -31,9 +31,7 @@ export default function Groups({ show, handleHide }) {
 
 	const data = React.useMemo(() => generateRandomData(100), []); // Call the function to generate random data
 
-	const columns = React.useMemo(() => [
-		{ Headers: 'Group', accessor: 'groupname' },
-	], []);
+	const columns = React.useMemo(() => [{ Headers: 'Group', accessor: 'groupname' }], []);
 
 	const { getTableProps, getTableBodyProps, headerGroups, page, nextPage, previousPage, canPreviousPage, canNextPage, pageOptions, state, setGlobalFilter, prepareRow } = useTable(
 		{ columns, data },
@@ -43,6 +41,11 @@ export default function Groups({ show, handleHide }) {
 	);
 
 	const { pageIndex, globalFilter } = state; // Get current state values
+
+	const [tableShow, setTableShow] = React.useState(false);
+	function handleTableShow() {
+		setTableShow(prevState => !prevState);
+	}
 
 	return (
 		<>
@@ -108,7 +111,7 @@ export default function Groups({ show, handleHide }) {
 				</HStack>
 				<Box className="flex flex-col h-full">
 					<Flex justify="left" className="h-full">
-						<VStack spacing={0} flex={0}>
+						<VStack spacing={0} flex={tableShow ? 0 : 1}>
 							<TableContainer backgroundColor="gray.200" className="flex-grow rounded-tl-lg border border-black border-opacity-30 h-full w-full">
 								<Table {...getTableProps()} variant="unstyled" size="lg" className="h-full">
 									<Thead className="table-header-color border-b border-black border-opacity-50">
@@ -137,7 +140,7 @@ export default function Groups({ show, handleHide }) {
 											return (
 												<Tr {...row.getRowProps()} backgroundColor={row.index % 2 === 0 ? '#ECEBEA' : '#FEFDFD'} className="hover:bg-slate-300 cursor-pointer transition-all duration-150 ease-in-out">
 													{row.cells.map(cell => (
-														<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} className="focus:bg-gray-600 focus:bg-opacity-30">
+														<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} onClick={handleTableShow} className="focus:bg-gray-600 focus:bg-opacity-30">
 															{cell.render('Cell')}
 														</Td>
 													))}
@@ -173,9 +176,7 @@ export default function Groups({ show, handleHide }) {
 								</Button>
 							</Flex>
 						</VStack>
-						<Box flex={1} className=" bg-white">
-
-						</Box>
+						{tableShow && <Box flex={1} className=" bg-white"></Box>}
 					</Flex>
 				</Box>
 			</Box>
