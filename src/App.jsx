@@ -1,4 +1,5 @@
 import React from 'react';
+import 'rsuite/dist/rsuite.min.css';
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import PageNotFound from './Util/PageNotFound';
 import IndexLayout from './Layouts/IndexLayout';
