@@ -7,10 +7,10 @@ function isActive({ isActive }) {
 	return isActive ? 'active' : null;
 }
 
-function SidebarButton({ name, icon, link, borderBottom, radiusTr, radiusBr }) {
+function SidebarButton({ name, icon, link, borderBottom, radiusTr, radiusBr, hidden }) {
 	return (
 		<Tooltip label={name} hasArrow placement="right" rounded="5px" bg="#0284c7" w="125px" className="flex items-center justify-center text-center">
-			<NavLink to={link} className={`flex justify-center items-center text-white hover:bg-sky-700 h-16 xl:h-20 ${borderBottom} ${radiusTr} ${radiusBr} border-slate-700 border-opacity-40`}>
+			<NavLink to={link} className={`${hidden} flex justify-center items-center text-white hover:bg-sky-700 h-16 xl:h-20 ${borderBottom} ${radiusTr} ${radiusBr} border-slate-700 border-opacity-40`}>
 				{icon}
 			</NavLink>
 		</Tooltip>
@@ -28,6 +28,7 @@ export default function Sidebar() {
 			borderBottom={value.borderBottom ? 'border-b-2' : ''}
 			radiusTr={value.radiusTr ? 'rounded-tr-xl' : ''}
 			radiusBr={value.radiusBr ? 'rounded-br-xl ' : ''}
+			hidden={value.hidden ? 'hidden' : ''}
 		/>
 	));
 

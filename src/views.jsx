@@ -17,67 +17,78 @@ export const views = {
 		path: 'sites',
 		borderBottom: true,
 		radiusTr: true,
-		radiusBr: false
+		radiusBr: false,
+		hidden: false
 	},
 	powerplants: {
 		name: 'Power Plants',
 		icon: <BoltIcon fontSize='large'/>,
 		path: 'powerplants',
-		borderBottom: true
+		borderBottom: true,
+		hidden: false
 	},
 	powerplantfeatures: {
 		name: 'Power Plant Features',
 		icon: <QuestionMarkOutlinedIcon fontSize='large'/>,
 		path: 'features',
-		borderBottom: true
+		borderBottom: true,
+		hidden: false
 	},
 	protocols: {
 		name: 'Protocols',
 		icon: <ChecklistIcon fontSize='large'/>,
 		path: 'protocols',
-		borderBottom: true
+		borderBottom: true,
+		hidden: false
 	},
 	templateeditor: {
 		name: 'Template Editor',
 		icon: <FormatSizeOutlinedIcon fontSize='large'/>,
 		path: 'templates',
-		borderBottom: true
+		borderBottom: true,
+		hidden: false
 	},
 	variants: {
 		name: 'Variants',
 		icon: <AltRouteOutlinedIcon fontSize='large'/>,
 		path: 'variants',
-		borderBottom: true
+		borderBottom: true,
+		hidden: false
 	},
 	typedefinitions: {
 		name: 'Type Definitions',
 		icon: <QuestionMarkOutlinedIcon fontSize='large'/>,
 		path: 'definitions',
-		borderBottom: true
+		borderBottom: true,
+		hidden: false
 	},
 	users: {
 		name: 'Users',
 		icon: <PersonAddIcon fontSize='large'/>,
 		path: 'users',
-		borderBottom: true
+		borderBottom: true,
+		hidden: false
 	},
 	groups: {
 		name: 'Groups',
 		icon: <GroupIcon fontSize='large'/>,
 		path: 'groups',
-		borderBottom: true
+		borderBottom: true,
+		hidden: false
 	},
 	feedback: {
 		name: 'Feedback',
 		icon: <FeedbackIcon fontSize='large'/>,
 		path: 'feedback',
-		borderBottom: true
+		borderBottom: true,
+		hidden: true
 	},
 	feedBackResults: {
 		name: 'Feedback Results',
 		icon: <QuestionAnswerIcon fontSize='large'/>,
 		path: 'feedback-results',
-		borderBottom: true
+		borderBottom: true,
+		hidden: false
 	},
 	profile: {
 		name: 'Profile',
@@ -85,6 +96,7 @@ export const views = {
 		path: 'profile',
 		borderBottom: true,
 		radiusTr: false,
-		radiusBr: true
+		radiusBr: true,
+		hidden: false
 	}
 };

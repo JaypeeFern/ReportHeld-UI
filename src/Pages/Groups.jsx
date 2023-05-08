@@ -30,19 +30,66 @@ export default function Groups({ show, handleHide }) {
 	};
 
 	const data = React.useMemo(() => generateRandomData(100), []); // Call the function to generate random data
-
 	const columns = React.useMemo(() => [{ Headers: 'Group', accessor: 'groupname' }], []);
-
 	const { getTableProps, getTableBodyProps, headerGroups, page, nextPage, previousPage, canPreviousPage, canNextPage, pageOptions, state, setGlobalFilter, prepareRow } = useTable(
 		{ columns, data },
 		useGlobalFilter, // Use global filter hook
 		useSortBy, // Use sort by hook
 		usePagination // Use pagination hook
 	);
-
 	const { pageIndex, globalFilter } = state; // Get current state values
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	const drawerData = (drawerHeader = [], drawerCells = []) => {
+		const data = (
+			<Table variant="simple">
+				{drawerHeader.length > 0 && (
+					<Thead>
+						<Tr>
+							{drawerHeader.map((headerText, index) => (
+								<Th key={index}>{headerText}</Th>
+							))}
+						</Tr>
+					</Thead>
+				)}
+				<Tbody>
+					{drawerCells.map((row, rowIndex) => (
+						<Tr key={rowIndex}>
+							{row.map((cell, cellIndex) => (
+								<Td key={cellIndex}>{cell}</Td>
+							))}
+						</Tr>
+					))}
+				</Tbody>
+				{drawerHeader.length > 0 && (
+					<Tfoot>
+						<Tr>
+							{drawerHeader.map((headerText, index) => (
+								<Th key={index}>{headerText}</Th>
+							))}
+						</Tr>
+					</Tfoot>
+				)}
+			</Table>
+		);
+		return data;
+	};
+
+	const headerData = ['Username', 'First Name', 'Last Name', 'Primary Group', 'Email'];
+	const cellData = [
+		['swbt-admin', 'Admin', 'GroupXS', 'Stadtwerke Bayreuth Administration', ''],
+		["jdoe", "John", "Doe", "Admins", "jdoe@example.com"],
+		["msmith", "Mary", "Smith", "Users", "msmith@example.com"],
+		["rjohnson", "Robert", "Johnson", "Users", null],
+		["tlee", "Tina", "Lee", "Managers", "tlee@example.com"],
+		["jwang", "Jennifer", "Wang", "Managers", "jwang@example.com"],
+		["bchen", "Brian", "Chen", "Users", "bchen@example.com"],
+		["cwilliams", "Charles", "Williams", "Admins", "cwilliams@example.com"],
+		["ksmith", "Kevin", "Smith", "Users", null],
+		["jchen", "Jessica", "Chen", "Managers", "jchen@example.com"],
+		["msmith", "Michael", "Smith", "Admins", "msmith@example.com"],,
+	];
 
 	return (
 		<>
@@ -145,17 +192,6 @@ export default function Groups({ show, handleHide }) {
 											);
 										})}
 									</Tbody>
-									{/* <Tfoot className="table-header-color border-t border-b-gray-500 border-black border-opacity-50">
-										{headerGroups.map(headerGroup => (
-											<Tr {...headerGroup.getHeaderGroupProps()}>
-												{headerGroup.headers.map(column => (
-													<Th textAlign="center" {...column.getHeaderProps(column.getSortByToggleProps())}>
-														{column.render('Headers')}
-													</Th>
-												))}
-											</Tr>
-										))}
-									</Tfoot> */}
 								</Table>
 							</TableContainer>
 							<Flex gap={2} className="pagination-container flex gap-10 justify-center bg-gray-400 bg-opacity-50 p-3 rounded-bl-md rounded-br-md w-full border-l border-r border-b border-black border-opacity-20">
@@ -176,7 +212,7 @@ export default function Groups({ show, handleHide }) {
 
 						<Drawer placement="top" onClose={onClose} isOpen={isOpen}>
 							<DrawerOverlay />
-							<DrawerContent>
+							<DrawerContent height='500px'>
 								<DrawerHeader borderBottomWidth="1px">
 									<Flex gap={3}>
 										<Text fontWeight="light">Selected Group:</Text>
@@ -185,45 +221,11 @@ export default function Groups({ show, handleHide }) {
 											<Text>Users:</Text>
 											<Text fontWeight="bold">99</Text>
 										</Tag>
+										<Input size='sm' w={200} borderColor='blackAlpha.400' borderRadius={7} placeholder='Search'></Input>
 									</Flex>
 								</DrawerHeader>
 								<DrawerBody>
-									<TableContainer>
-										<Table variant="simple">
-											<Thead>
-												<Tr>
-													<Th>To convert</Th>
-													<Th>into</Th>
-													<Th isNumeric>multiply by</Th>
-												</Tr>
-											</Thead>
-											<Tbody>
-												<Tr>
-													<Td>inches</Td>
-													<Td>millimetres (mm)</Td>
-													<Td isNumeric>25.4</Td>
-												</Tr>
-												<Tr>
-													<Td>feet</Td>
-													<Td>centimetres (cm)</Td>
-													<Td isNumeric>30.48</Td>
-												</Tr>
-												<Tr>
-													<Td>yards</Td>
-													<Td>metres (m)</Td>
-													<Td isNumeric>0.91444</Td>
-												</Tr>
-											</Tbody>
-											<Tfoot>
-												<Tr>
-													<Th>To convert</Th>
-													<Th>into</Th>
-													<Th isNumeric>multiply by</Th>
-												</Tr>
-											</Tfoot>
-										</Table>
-									</TableContainer>
-									;
+									<TableContainer>{drawerData(headerData, cellData)}</TableContainer>
 								</DrawerBody>
 							</DrawerContent>
 						</Drawer>
