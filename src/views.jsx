@@ -74,7 +74,9 @@ export const views = {
 		icon: <GroupIcon fontSize='large'/>,
 		path: 'groups',
 		borderBottom: true,
-		hidden: false
+		hidden: false,
+		radiusTr: false,
+		radiusBr: true,
 	},
 	feedback: {
 		name: 'Feedback',
@@ -88,7 +90,7 @@ export const views = {
 		icon: <QuestionAnswerIcon fontSize='large'/>,
 		path: 'feedback-results',
 		borderBottom: true,
-		hidden: false
+		hidden: true
 	},
 	profile: {
 		name: 'Profile',
@@ -97,6 +99,6 @@ export const views = {
 		borderBottom: true,
 		radiusTr: false,
 		radiusBr: true,
-		hidden: false
+		hidden: true
 	}
 };

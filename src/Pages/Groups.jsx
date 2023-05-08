@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Flex, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag } from '@chakra-ui/react';
+import { Box, Text, Flex, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag } from '@chakra-ui/react';
 import Icon from '@mdi/react';
 import { mdiAccountMultiple, mdiSquareEditOutline, mdiChevronLeft, mdiCloseBox } from '@mdi/js';
 import { Link } from 'react-router-dom';
@@ -106,18 +106,18 @@ export default function Groups({ show, handleHide }) {
 								</Button>
 							</Flex>
 							<Box onClick={handleHide} cursor="pointer">
-								<Icon path={mdiCloseBox} size={1.8} className="text-red-500 hover:text-red-600 transition-all duration-150 ease-in-out" />
+								<Icon path={mdiCloseBox} size={1.5} className="text-red-500 hover:text-red-600 transition-all duration-150 ease-in-out" />
 							</Box>
 						</HStack>
 						<Flex direction="column" p={7} gap={2}>
 							<Box mb={3}>
-								<Text textAlign="left" fontWeight="semibold" opacity={0.8} mb={1.5} className="text-white ">
+								<Text textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
 									Name
 								</Text>
 								<Input bg="gray.400" border={0} focusBorderColor="#0288d1" />
 							</Box>
 							<Box mb={3}>
-								<Text textAlign="left" fontWeight="semibold" opacity={0.8} mb={1.5} className="text-white ">
+								<Text textAlign="left" fontWeight="semibold"mb={1.5} className="text-white ">
 									Type
 								</Text>
 								<Select placeholder="Select option" bg="gray.400" border={0} focusBorderColor="#0288d1">
@@ -127,7 +127,7 @@ export default function Groups({ show, handleHide }) {
 								</Select>
 							</Box>
 							<Box mb={3}>
-								<Text textAlign="left" fontWeight="semibold" opacity={0.8} mb={1.5} className="text-white ">
+								<Text textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
 									Description
 								</Text>
 								<Textarea placeholder="Enter Description" _placeholder={{ opacity: 0.5, color: 'black' }} bg="gray.400" border={0} focusBorderColor="#0288d1" />
