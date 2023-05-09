@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Flex, Input, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Button, HStack, VStack } from '@chakra-ui/react';
 import Icon from '@mdi/react';
-import {mdiHelp, mdiCheck, mdiClose } from '@mdi/js';
+import { mdiHelp, mdiCheck, mdiClose } from '@mdi/js';
 import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
 import { faker } from '@faker-js/faker/locale/en';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ export default function ItemTypeDefinitions() {
 				version: `${i}`,
 				numberofprops: `${i}`,
 				status: (
-					<Flex justifyContent='center'>
+					<Flex justifyContent="center">
 						<Icon path={i % 2 ? mdiCheck : mdiClose} size={1} />
 					</Flex>
 				),
@@ -52,14 +52,22 @@ export default function ItemTypeDefinitions() {
 				<HStack>
 					<Flex className="table-header-color w-full ps-2 items-center rounded-lg dropshadow-box-25">
 						<Icon path={mdiHelp} size={1} />
-						<Text fontWeight="medium" fontSize="lg" className="p-2 rounded-lg text-gray-600">
+						<Text fontWeight="medium" fontSize="md" className="p-2 rounded-lg text-gray-600">
 							Item Type Definitions
 						</Text>
 					</Flex>
-					<Flex>
-						<Input variant="filled" placeholder="Search" borderRadius="lg" value={globalFilter || ''} onChange={e => setGlobalFilter(e.target.value)} className="dropshadow-box-25" />
+					<Flex gap={2}>
+						<Button colorScheme='green' bg='green.500' size="md" className="">
+							Create Item Type Definition
+						</Button>
+						<Button colorScheme='green' bg='green.500' size="md" className="">
+							Import Item Type Definition
+						</Button>
 					</Flex>
 				</HStack>
+				<Flex>
+					<Input variant="filled" placeholder="Search" borderRadius="lg" value={globalFilter || ''} onChange={e => setGlobalFilter(e.target.value)} className="dropshadow-box-25" />
+				</Flex>
 				<Box className="flex flex-col h-full">
 					<Box className="h-full">
 						<VStack className="h-full" spacing={0} flex={1}>

@@ -1,25 +1,22 @@
 import React from 'react';
+import { Box, Divider, Text, Flex, Grid, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag } from '@chakra-ui/react';
 import Icon from '@mdi/react';
-import { Link } from 'react-router-dom';
-import { mdiCloseBox, mdiTrashCan, mdiChevronLeft, mdiChartSankeyVariant, mdiAlert } from '@mdi/js';
+import { mdiCloseBox, mdiChevronLeft, mdiChartSankeyVariant, mdiCheck, mdiClose, mdiAlert } from '@mdi/js';
 import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
+import { faker } from '@faker-js/faker/locale/en';
 
-export default function Variants({show, handleHide}) {
+export default function Variants({ show, handleHide }) {
 	const generateRandomData = count => {
 		const data = [];
 		for (let i = 1; i <= count; i++) {
 			data.push({
-				defaultname: `Default ${i}`,
-				enname: 'English Name',
-				dename: 'German Name',
-				inuse: 'Yes',
-				action: (
-					<div className="flex gap-3 justify-center">
-						<button className="bg-red-500 hover:bg-red-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs">
-							{' '}
-							<Icon path={mdiTrashCan} size={1} />{' '}
-						</button>
-					</div>
+				defaultname: faker.company.name(),
+				enname: faker.name.firstName(),
+				dename: faker.name.lastName(),
+				inuse: (
+					<Flex justify="center">
+						<Icon path={i % 2 ? mdiCheck : mdiClose} size={1} />
+					</Flex>
 				)
 			});
 		}
@@ -27,154 +24,146 @@ export default function Variants({show, handleHide}) {
 	};
 
 	const data = React.useMemo(() => generateRandomData(100), []); // Call the function to generate random data
-
 	const columns = React.useMemo(
 		() => [
-			{ Header: 'Default Name', accessor: 'defaultname' },
-			{ Header: 'EN Name', accessor: 'enname' },
-			{ Header: 'DE Name', accessor: 'dename' },
-			{ Header: 'Inuse', accessor: 'inuse' },
-			{ Header: '', accessor: 'action', disableSortBy: true }
+			{ Headers: 'Default Name', accessor: 'defaultname' },
+			{ Headers: 'EN Name', accessor: 'enname' },
+			{ Headers: 'DE Name', accessor: 'dename' },
+			{ Headers: 'In Use', accessor: 'inuse' }
 		],
 		[]
 	);
-
-	const { getTableProps, getTableBodyProps, headerGroups, page, nextPage, previousPage, canPreviousPage, canNextPage, pageOptions, state, setGlobalFilter, prepareRow } = useTable(
-		{ columns, data },
-		useGlobalFilter, // Use global filter hook
-		useSortBy, // Use sort by hook
-		usePagination // Use pagination hook
-	);
-
-	const { pageIndex, globalFilter } = state; // Get current state values
+	const { getTableProps, getTableBodyProps, headerGroups, page, nextPage, previousPage, canPreviousPage, canNextPage, pageOptions, state, setGlobalFilter, prepareRow } = useTable({ columns, data }, useGlobalFilter, useSortBy, usePagination);
+	const { pageIndex, globalFilter } = state;
 
 	return (
 		<>
 			{show && (
-				<div className="bg-zinc-600 rounded-tl-xl rounded-bl-xl">
-					<div className="bg-black bg-opacity-30 h-16 rounded-tl-xl">
-						<div className="flex justify-between items-center h-16 mx-3">
-							<div className="left flex gap-2 ms-4">
-								<button className="bg-green-500 hover:bg-green-700 rounded-lg font-semibold text-white p-2 text-sm w-20  dropshadow-box-25">Add</button>
-								<button className="bg-red-500 hover:bg-red-700 rounded-lg font-semibold text-white p-2 text-sm w-20 dropshadow-box-25">Cancel</button>
-							</div>
-							<div className="right flex gap-2 items-center">
-								<button onClick={handleHide}>
-									<Icon path={mdiCloseBox} size={1.5} color="#E86B6B" />
-								</button>
-							</div>
-						</div>
-						<div className="input py-5 px-10 flex flex-col gap-4">
-							<div className="flex relative gap-6 items-center py-6 px-4 rounded-md bg-gray-300 mb-6 box-dropshadow-box-25">
-								<div className="flex justify-center items-center flex-col bg-gray-100 bg-opacity-70ww rounded-tl-lg rounded-bl-lg absolute h-full p-2 left-0">
-									<Icon path={mdiAlert} size={2.5} color="#E86B6B" />
-									<span className='font-bold text-red-400'>Warning</span>
-								</div>
-								<span className="w-64 text-justify font-semibold ms-20 text-sm">
-									The template name will be replaced by the name of the protocol variant, so please make sure to select a template-specific name.
-								</span>
-							</div>
-							<div className="flex flex-col gap-1 mb-3">
-								<label className="text-white text-sm font-bold">Name Default</label>
-								<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
-							</div>
-							<div className="flex flex-col gap-1 mb-3">
-								<label className="text-white text-sm font-bold">Name English</label>
-								<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
-							</div>
-							<div className="flex flex-col gap-1 mb-3">
-								<label className="text-white text-sm font-bold">Name German</label>
-								<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
-							</div>
-						</div>
-					</div>
-				</div>
+				<Box>
+					<Flex gap={0} className="rounded-tl-lg rounded-bl-lg h-full w-full flex-col bg-zinc-600">
+						<HStack py={1.5} px={4} className="justify-between rounded-tl-lg bg-black bg-opacity-30 h-16">
+							<Flex gap={2}>
+								<Button size="sm" colorScheme="green">
+									Save
+								</Button>
+								<Button size="sm" colorScheme="red">
+									Cancel
+								</Button>
+							</Flex>
+							<Box onClick={handleHide} cursor="pointer">
+								<Icon path={mdiCloseBox} size={1.5} className="text-red-400 hover:text-red-500 transition-all duration-150 ease-in-out" />
+							</Box>
+						</HStack>
+						<Flex direction="column" px={7} py={5}>
+							<Flex gap={2} direction='column' alignItems='center' w={200} mb={4}>
+								<Icon path={mdiAlert} size={2.5} color="#E86B6B" />
+								<Text color='whiteAlpha.700' fontSize="sm" className="text-justify">
+									The template name <mark className='text-red-300 bg-transparent' >will be replaced by the name of the protocol variant,</mark> so please make sure to select a template-specific name.
+								</Text>
+								<Divider mt={2} p={0}/>
+							</Flex> 
+							<Grid templateColumns="repeat(1, 200px)" gap={4} mb={3}>
+								<Box>
+									<Text fontSize={15} textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
+										Name Default
+									</Text>
+									<Input rounded="md" size="sm" bg="gray.400" border={0} focusBorderColor="#0288d1" />
+								</Box>
+								<Box>
+									<Text fontSize={15} textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
+										Name English
+									</Text>
+									<Input rounded="md" size="sm" bg="gray.400" border={0} focusBorderColor="#0288d1" type="password" />
+								</Box>
+								<Box>
+									<Text fontSize={15} textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
+										Name German
+									</Text>
+									<Input rounded="md" size="sm" bg="gray.400" border={0} focusBorderColor="#0288d1" />
+								</Box>
+							</Grid>
+						</Flex>
+					</Flex>
+				</Box>
 			)}
-
-			<div className={`flex-grow flex flex-col bg-gray-300 me-7 ${show ? 'rounded-tr-xl rounded-br-xl' : 'rounded-xl'} border border-slate-400 p-7`}>
-				<div className="w-full flex mb-4 gap-5">
+			<Box bg="gray.300" className={`${show ? 'rounded-tr-lg rounded-br-lg' : 'rounded-lg'} flex flex-col gap-4 p-6 me-7 border border-opacity-50 border-slate-400 flex-grow`} width={200}>
+				<HStack>
 					{!show && (
-						<div className="table-header-color flex items-center px-4 rounded-lg hover:bg-lime-400 hover:bg-opacity-80 dropshadow-box-25">
-							<button onClick={handleHide}>
-								<Icon path={mdiChevronLeft} size={1} />
-							</button>
-						</div>
+						<Button bg="#b7ee5b" _hover={{ backgroundColor: '#99c74b' }} onClick={handleHide} className="dropshadow-box-25">
+							<Icon path={mdiChevronLeft} size={1} />
+						</Button>
 					)}
-					<div className="flex-grow table-header-color p-2 rounded-lg text-gray-600 font-sans text-lg dropshadow-box-25">
-						<div className="flex gap-1 items-center">
-							<Icon path={mdiChartSankeyVariant} size={1} />
-							<h1>Variants</h1>
-						</div>
-					</div>
-				</div>
-				<div className="table-container flex flex-col text-center h-full">
-					<input className="mb-4 p-2 rounded-lg dropshadow-box-25" type="text" value={globalFilter || ''} onChange={e => setGlobalFilter(e.target.value)} placeholder=" Search by name..." />
-					{page.length === 0 ? (
-						<div className="no-data-message my-16">No data available</div>
-					) : (
-						<div className="overflow-hidden rounded-xl bg-gray-300 mb-4 dropshadow-box-25 h-full">
-							<table {...getTableProps()} className="border-collapse w-full h-full">
-								<thead>
-									{headerGroups.map(headerGroup => (
-										<tr {...headerGroup.getHeaderGroupProps()} className="table-row">
-											{headerGroup.headers.map(column => (
-												<th {...column.getHeaderProps(column.getSortByToggleProps())} className="p-3 border border-black border-opacity-20 table-header-color text-md">
-													{column.render('Header')}
-													<span>
-														{column.isSorted ? ( // Add conditional check for showing sort direction
-															column.isSortedDesc ? (
-																<span className="sort-icon ms-1 text-blue-500">&#x25BC;</span> // Downward arrow for descending sort
+					<Flex className="table-header-color w-full ps-2 items-center rounded-lg dropshadow-box-25">
+						<Icon path={mdiChartSankeyVariant} size={1} />
+						<Text fontWeight="medium" fontSize="lg" className="p-2 rounded-lg text-gray-600">
+							Variants
+						</Text>
+					</Flex>
+					<Flex>
+						<Input variant="filled" placeholder="Search" borderRadius="lg" value={globalFilter || ''} onChange={e => setGlobalFilter(e.target.value)} className="dropshadow-box-25" />
+					</Flex>
+				</HStack>
+				<Box className="flex flex-col h-full">
+					<Box className="h-full">
+						<VStack className="h-full" spacing={0} flex={1}>
+							<TableContainer backgroundColor="gray.200" className={`flex-grow border rounded-tl-lg rounded-tr-lg border-black border-opacity-30 h-full w-full`}>
+								<Table {...getTableProps()} variant="unstyled" size="lg" className="h-full">
+									<Thead className="table-header-color border-b border-black border-opacity-50">
+										{headerGroups.map(headerGroup => (
+											<Tr {...headerGroup.getHeaderGroupProps()} className="table-row">
+												{headerGroup.headers.map(column => (
+													<Th fontSize={14} textAlign="center" {...column.getHeaderProps(column.getSortByToggleProps())}>
+														<Flex justifyContent="center" gap={2}>
+															{column.render('Headers')}
+															{column.isSorted ? ( // Add conditional check for showing sort direction
+																column.isSortedDesc ? (
+																	<Text className="sort-icon ms">&#x25BC;</Text> // Downward arrow for descending sort
+																) : (
+																	<Text className="sort-icon ms">&#x25B2;</Text> // Upward arrow for ascending sort
+																)
 															) : (
-																<span className="sort-icon ms-1 text-blue-500">&#x25B2;</span> // Upward arrow for ascending sort
-															)
-														) : (
-															''
-														)}
-													</span>
-												</th>
-											))}
-										</tr>
-									))}
-								</thead>
-								<tbody {...getTableBodyProps()} className="">
-									{page.map(row => {
-										prepareRow(row);
-										return (
-											<tr
-												{...row.getRowProps()}
-												className="border"
-												style={{
-													backgroundColor: row.index % 2 === 0 ? '#ECEBEA' : '#FEFDFD' // Set alternating background colors for rows
-												}}
-											>
-												{row.cells.map(cell => (
-													<td className="py-2 border border-black border-opacity-20 text-sm" {...cell.getCellProps()}>
-														{cell.render('Cell')}
-													</td>
+																''
+															)}
+														</Flex>
+													</Th>
 												))}
-											</tr>
-										);
-									})}
-								</tbody>
-							</table>
-						</div>
-					)}
-					<div className="pagination-container flex gap-10 justify-center bg-gray-400 p-3 rounded-lg">
-						<button onClick={() => previousPage()} disabled={!canPreviousPage}>
-							Previous
-						</button>
-						<span>
-							{/* Page{' '} */}
-							<strong>
-								{pageIndex + 1} of {pageOptions.length}
-							</strong>
-						</span>
-						<button onClick={() => nextPage()} disabled={!canNextPage}>
-							Next
-						</button>
-					</div>
-				</div>
-			</div>
+											</Tr>
+										))}
+									</Thead>
+									<Tbody {...getTableBodyProps()}>
+										{page.map(row => {
+											prepareRow(row);
+											return (
+												<Tr {...row.getRowProps()} backgroundColor={row.index % 2 === 0 ? '#ECEBEA' : '#FEFDFD'} className="hover:bg-slate-300 cursor-pointer transition-all duration-150 ease-in-out">
+													{row.cells.map(cell => (
+														<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} className="border-b border-slate-700 border-opacity-50">
+															{cell.render('Cell')}
+														</Td>
+													))}
+												</Tr>
+											);
+										})}
+									</Tbody>
+								</Table>
+							</TableContainer>
+							<Flex gap={2} className="pagination-container flex gap-10 justify-center bg-gray-400 bg-opacity-50 p-3 rounded-bl-md rounded-br-md w-full border-l border-r border-b border-black border-opacity-20">
+								<Button size="sm" bg="transparent" onClick={() => previousPage()} disabled={!canPreviousPage}>
+									Previous
+								</Button>
+								<Text className="flex items-center">
+									{/* Page{' '} */}
+									<strong>
+										{pageIndex + 1} of {pageOptions.length}
+									</strong>
+								</Text>
+								<Button size="sm" bg="transparent" onClick={() => nextPage()} disabled={!canNextPage}>
+									Next
+								</Button>
+							</Flex>
+						</VStack>
+					</Box>
+				</Box>
+			</Box>
 		</>
 	);
 }

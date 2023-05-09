@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from '@mdi/react';
-import { mdiTrashCan, mdiFilterMenu, mdiFormatListChecks, mdiLock,  mdiLockOpen } from '@mdi/js';
-import { Select } from '@chakra-ui/react';
+import { mdiTrashCan, mdiLockOpenVariant, mdiFilterMenu, mdiFilterMinus, mdiFormatListChecks, mdiLock, mdiLockOpen } from '@mdi/js';
+import { Box, Divider, Text, Flex, Grid, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag } from '@chakra-ui/react';
 import { useTable, usePagination, useGlobalFilter, useSortBy, useFilters } from 'react-table';
 
 export default function Protocols() {
@@ -14,7 +14,11 @@ export default function Protocols() {
 				basedOn: `Based on ${i}`,
 				date: '00.00.0000',
 				owner: 'John Paul',
-                status: 'Active',
+				status: (
+					<Flex justifyContent="center">
+						<Icon path={i % 2 ? mdiLockOpen : mdiLockOpenVariant} className={`${i % 2 ? 'opacity-100' : 'opacity-50'}`} size={1} />
+					</Flex>
+				),
 				action: (
 					<div className="flex gap-3 justify-center">
 						<button className="bg-red-500 hover:bg-red-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs">
@@ -32,13 +36,13 @@ export default function Protocols() {
 
 	const columns = React.useMemo(
 		() => [
-			{ Header: 'Location', accessor: 'location' },
-			{ Header: 'Name', accessor: 'name', Filter: SelectColumnFilter, filter: 'includes' },
-			{ Header: 'Based On', accessor: 'basedOn' },
-			{ Header: 'Date', accessor: 'date' },
-			{ Header: 'Owner', accessor: 'owner' },
-			{ Header: 'Status', accessor: 'status' },
-			{ Header: '', accessor: 'action', disableSortBy: true }
+			{ Headers: 'Location', accessor: 'location' },
+			{ Headers: 'Name', accessor: 'name', Filter: SelectColumnFilter, filter: 'includes' },
+			{ Headers: 'Based On', accessor: 'basedOn' },
+			{ Headers: 'Date', accessor: 'date' },
+			{ Headers: 'Owner', accessor: 'owner' },
+			{ Headers: 'Status', accessor: 'status' },
+			{ Headers: 'Action', accessor: 'action', disableSortBy: true }
 		],
 		[]
 	);
@@ -53,7 +57,7 @@ export default function Protocols() {
 
 	const { pageIndex, globalFilter } = state; // Get current state values
 
-    function SelectColumnFilter({ column: { filterValue, setFilter, preFilteredRows, id } }) {
+	function SelectColumnFilter({ column: { filterValue, setFilter, preFilteredRows, id } }) {
 		const options = React.useMemo(() => {
 			const options = new Set();
 			preFilteredRows.forEach(row => {
@@ -85,114 +89,103 @@ export default function Protocols() {
 		);
 	}
 
-	const [open, setOpen] = React.useState(true);
+	const [open, setOpen] = React.useState(false);
 	function handleFilterShow() {
 		setOpen(prevState => !prevState);
 	}
 
 	return (
 		<>
-			<div className="flex-grow flex flex-col bg-gray-300 me-7 rounded-lg border border-slate-400 p-7">
-				<div className="w-full flex mb-4 gap-5">
-					<div className="flex-grow table-header-color p-2 rounded-lg text-gray-600 font-sans text-lg dropshadow-box-25">
-						<div className="flex gap-1 items-center">
-							<Icon path={mdiFormatListChecks} size={1} />
-							<h1>Manage Protocols</h1>
-						</div>
-					</div>
-					{/* <div className="flex items-center px-16 rounded-lg dropshadow-box-25"></div> */}
-				</div>
-
-				<div className="table-container flex flex-col text-center h-full">
-					<div className="relative">
-						<input
-							className={`p-2 ${open ? 'rounded-lg dropshadow-box-25 transition-all duration-300 delay-0 ease-in-out' : 'rounded-tl-lg rounded-tr-lg'} w-full`}
-							type="text"
-							value={globalFilter || ''}
-							onChange={e => setGlobalFilter(e.target.value)}
-							placeholder=" Search"
-						/>
-						<button onClick={handleFilterShow} className={`absolute right-0 top-0 bg-gray-400 p-2 ${open ? 'rounded-tr-lg rounded-br-lg text-gray-500' : 'rounded-tr-lg'} `}>
-							<Icon path={mdiFilterMenu} size={1} />
-						</button>
-					</div>
-					<div className={`${open ? 'opacity-0 sr-only' : 'opacity-100'} bg-gray-400 p-5 rounded-bl-lg rounded-br-lg transition-all duration-1000 ease-in-out dropshadow-box-25`}>
+			<Box bg="gray.300" className={`rounded-lg flex flex-col gap-4 p-6 me-7 border border-opacity-50 border-slate-400 flex-grow`} width={200}>
+				<HStack>
+					<Flex className={`table-header-color w-full ps-2 items-center ${open ? 'rounded-tl-md rounded-tr-md' : 'rounded-md dropshadow-box-25'}`}>
+						<Icon path={mdiFormatListChecks} size={1} />
+						<Text fontWeight="medium" fontSize="lg" className="p-2 rounded-lg text-gray-600">
+							Protocols
+						</Text>
+					</Flex>
+					<Flex position="relative">
+						<Input _hover={{ opacity: 1 }} _focus={{ bg: 'whiteAlpha.700' }} focusBorderColor="transparent" variant="filled" placeholder="Search" value={globalFilter || ''} onChange={e => setGlobalFilter(e.target.value)} borderRadius={open ? '' : 'md'} borderTopLeftRadius={open ? 'md' : ''} borderTopRightRadius={open ? 'md' : ''} className={`${open ? '' : 'dropshadow-box-25'}`} />
+						<Button onClick={handleFilterShow} position="absolute" right={0}>
+							<Icon path={open ? mdiFilterMinus : mdiFilterMenu} size={1} className={open ? 'opacity-50' : 'opacity-100'} />
+						</Button>
+					</Flex>
+				</HStack>
+				{open && (
+					<Flex bg="blackAlpha.200" py={5} px={6} mt={-4} roundedBottomLeft="md" roundedBottomRight="md" className="dropshadow-box-25">
 						{headerGroups.map(headerGroup => (
-							<div {...headerGroup.getHeaderGroupProps()}>
+							<Box {...headerGroup.getHeaderGroupProps()}>
 								{headerGroup.headers.map(column => (
-									<div key={column.id} className="flex gap-2">
-										<div className="">{column.id === 'name' ? <SelectColumnFilter column={column} setFilter={column.setFilter} /> : null}</div>
-									</div>
+									<Box key={column.id} className="flex gap-2">
+										<Box className="">{column.id === 'name' ? <SelectColumnFilter column={column} setFilter={column.setFilter} /> : null}</Box>
+									</Box>
 								))}
-							</div>
+							</Box>
 						))}
-					</div>
-					{page.length === 0 ? (
-						<div className="no-data-message my-16">No data available</div>
-					) : (
-						<div className="overflow-hidden rounded-xl bg-gray-300 mb-4 mt-4 dropshadow-box-25 h-full">
-							<table {...getTableProps()} className="border-collapse w-full h-full">
-								<thead>
-									{headerGroups.map(headerGroup => (
-										<tr {...headerGroup.getHeaderGroupProps()} className="table-row">
-											{headerGroup.headers.map(column => (
-												<th {...column.getHeaderProps(column.getSortByToggleProps())} className="p-3 border border-black border-opacity-20 table-header-color text-md">
-													{column.render('Header')}
-													<span>
-														{column.isSorted ? ( // Add conditional check for showing sort direction
-															column.isSortedDesc ? (
-																<span className="sort-icon ms-1 text-blue-500">&#x25BC;</span> // Downward arrow for descending sort
+					</Flex>
+				)}
+
+				<Box className="flex flex-col h-full">
+					<Box className="h-full">
+						<VStack className="h-full" spacing={0} flex={1}>
+							<TableContainer backgroundColor="gray.200" className={`flex-grow border rounded-tl-lg rounded-tr-lg border-black border-opacity-30 h-full w-full`}>
+								<Table {...getTableProps()} variant="unstyled" size="lg" className="h-full">
+									<Thead className="table-header-color border-b border-black border-opacity-50">
+										{headerGroups.map(headerGroup => (
+											<Tr {...headerGroup.getHeaderGroupProps()} className="table-row">
+												{headerGroup.headers.map(column => (
+													<Th fontSize={14} textAlign="center" {...column.getHeaderProps(column.getSortByToggleProps())}>
+														<Flex justifyContent="center" gap={2}>
+															{column.render('Headers')}
+															{column.isSorted ? ( // Add conditional check for showing sort direction
+																column.isSortedDesc ? (
+																	<Text className="sort-icon ms">&#x25BC;</Text> // Downward arrow for descending sort
+																) : (
+																	<Text className="sort-icon ms">&#x25B2;</Text> // Upward arrow for ascending sort
+																)
 															) : (
-																<span className="sort-icon ms-1 text-blue-500">&#x25B2;</span> // Upward arrow for ascending sort
-															)
-														) : (
-															''
-														)}
-													</span>
-												</th>
-											))}
-										</tr>
-									))}
-								</thead>
-								<tbody {...getTableBodyProps()} className="">
-									{page.map(row => {
-										prepareRow(row);
-										return (
-											<tr
-												{...row.getRowProps()}
-												className="border"
-												style={{
-													backgroundColor: row.index % 2 === 0 ? '#ECEBEA' : '#FEFDFD' // Set alternating background colors for rows
-												}}
-											>
-												{row.cells.map(cell => (
-													<td className="py-2 border border-black border-opacity-20 text-sm" {...cell.getCellProps()}>
-														{cell.render('Cell')}
-													</td>
+																''
+															)}
+														</Flex>
+													</Th>
 												))}
-											</tr>
-										);
-									})}
-								</tbody>
-							</table>
-						</div>
-					)}
-					<div className="pagination-container flex gap-10 justify-center bg-gray-400 p-3 rounded-lg">
-						<button onClick={() => previousPage()} disabled={!canPreviousPage}>
-							Previous
-						</button>
-						<span>
-							{/* Page{' '} */}
-							<strong>
-								{pageIndex + 1} of {pageOptions.length}
-							</strong>
-						</span>
-						<button onClick={() => nextPage()} disabled={!canNextPage}>
-							Next
-						</button>
-					</div>
-				</div>
-			</div>
+											</Tr>
+										))}
+									</Thead>
+									<Tbody {...getTableBodyProps()}>
+										{page.map(row => {
+											prepareRow(row);
+											return (
+												<Tr {...row.getRowProps()} backgroundColor={row.index % 2 === 0 ? '#ECEBEA' : '#FEFDFD'} className="hover:bg-slate-300 cursor-pointer transition-all duration-150 ease-in-out">
+													{row.cells.map(cell => (
+														<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} className={`${row.index % 2 ? 'opacity-50' : 'opacity-100'} border-b border-slate-700 border-opacity-50`}>
+															{cell.render('Cell')}
+														</Td>
+													))}
+												</Tr>
+											);
+										})}
+									</Tbody>
+								</Table>
+							</TableContainer>
+							<Flex gap={2} className="pagination-container flex gap-10 justify-center bg-gray-400 bg-opacity-50 p-3 rounded-bl-md rounded-br-md w-full border-l border-r border-b border-black border-opacity-20">
+								<Button size="sm" bg="transparent" onClick={() => previousPage()} disabled={!canPreviousPage}>
+									Previous
+								</Button>
+								<Text className="flex items-center">
+									{/* Page{' '} */}
+									<strong>
+										{pageIndex + 1} of {pageOptions.length}
+									</strong>
+								</Text>
+								<Button size="sm" bg="transparent" onClick={() => nextPage()} disabled={!canNextPage}>
+									Next
+								</Button>
+							</Flex>
+						</VStack>
+					</Box>
+				</Box>
+			</Box>
 		</>
 	);
 }
