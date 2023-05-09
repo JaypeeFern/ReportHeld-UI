@@ -85,7 +85,7 @@ export default function Feedback() {
 									</Box>
 								</TabPanel>
 								<TabPanel p={2} className="flex flex-col gap-2">
-									{!showMessage && generateRandomMessages(5)}
+									{!showMessage && generateRandomMessages(3)}
 									{showMessage && (
 										<Flex flexDirection="column" gap={3} p={0}>
 											<Flex className='justify-between items-center'>

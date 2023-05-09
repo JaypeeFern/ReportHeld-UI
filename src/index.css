@@ -23,6 +23,12 @@ body {
   background: var(--blue-swbt);
 }
 
+.dropshadow-box-full { 
+  -webkit-box-shadow: 0px 1px 3px 0px rgba(29,29,29,.50);
+  -moz-box-shadow: 0px 1px 3px 0px rgba(29,29,29,.50);
+  box-shadow: 0px 1px 3px 0px rgba(29,29,29,.50);
+}
+
 .dropshadow-box-35 { 
   -webkit-box-shadow: 0px 2px 5px 0px rgba(29,29,29,0.35);
   -moz-box-shadow: 0px 2px 5px 0px rgba(29,29,29,0.35);

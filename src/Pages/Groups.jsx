@@ -4,40 +4,28 @@ import Icon from '@mdi/react';
 import { mdiAccountMultiple, mdiSquareEditOutline, mdiChevronLeft, mdiCloseBox } from '@mdi/js';
 import { Link } from 'react-router-dom';
 import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
+import { faker } from '@faker-js/faker/locale/en'
 
 export default function Groups({ show, handleHide }) {
 	const generateRandomData = count => {
 		const data = [];
 		for (let i = 1; i <= count; i++) {
 			data.push({
-				groupname: `${i}@stadtwerke-bayreuth.de`,
-				groupname_user: 'Admin GroupXS',
-				firstname: `Admin ${i}`,
-				lastname: 'GroupXS',
-				primarygroup: 'Stadtwerke Bayreuth Administration',
-				email: '',
-				action: (
-					<div className="flex gap-3 justify-center">
-						<Link to="/edit-groups" className="bg-green-500 hover:bg-green-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs">
-							{' '}
-							<Icon path={mdiSquareEditOutline} size={1} />{' '}
-						</Link>
-					</div>
-				)
+				groupname: faker.company.name(),
 			});
 		}
 		return data;
 	};
 
-	const data = React.useMemo(() => generateRandomData(100), []); // Call the function to generate random data
+	const data = React.useMemo(() => generateRandomData(100), []); 
 	const columns = React.useMemo(() => [{ Headers: 'Group', accessor: 'groupname' }], []);
 	const { getTableProps, getTableBodyProps, headerGroups, page, nextPage, previousPage, canPreviousPage, canNextPage, pageOptions, state, setGlobalFilter, prepareRow } = useTable(
 		{ columns, data },
-		useGlobalFilter, // Use global filter hook
-		useSortBy, // Use sort by hook
-		usePagination // Use pagination hook
+		useGlobalFilter, 
+		useSortBy,
+		usePagination 
 	);
-	const { pageIndex, globalFilter } = state; // Get current state values
+	const { pageIndex, globalFilter } = state; 
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -162,13 +150,13 @@ export default function Groups({ show, handleHide }) {
 										{headerGroups.map(headerGroup => (
 											<Tr {...headerGroup.getHeaderGroupProps()} className="table-row">
 												{headerGroup.headers.map(column => (
-													<Th fontSize={18} textAlign="center" {...column.getHeaderProps(column.getSortByToggleProps())} className="p-3">
+													<Th fontSize={16} textAlign="center" {...column.getHeaderProps(column.getSortByToggleProps())} className="flex justify-center gap-2">
 														{column.render('Headers')}
-														{column.isSorted ? ( // Add conditional check for showing sort direction
+														{column.isSorted ? ( 
 															column.isSortedDesc ? (
-																<Text className="sort-icon ms">&#x25BC;</Text> // Downward arrow for descending sort
+																<Text className="sort-icon ms">&#x25BC;</Text>
 															) : (
-																<Text className="sort-icon ms">&#x25B2;</Text> // Upward arrow for ascending sort
+																<Text className="sort-icon ms">&#x25B2;</Text>
 															)
 														) : (
 															''
@@ -216,10 +204,10 @@ export default function Groups({ show, handleHide }) {
 								<DrawerHeader borderBottomWidth="1px">
 									<Flex gap={3}>
 										<Text fontWeight="light">Selected Group:</Text>
-										<Text flex={1}>1@stadtwerke-bayreuth.de</Text>
+										<Text flex={1}>{faker.company.name()}</Text>
 										<Tag className="flex gap-2">
 											<Text>Users:</Text>
-											<Text fontWeight="bold">99</Text>
+											<Text fontWeight="bold">{faker.datatype.number()}</Text>
 										</Tag>
 										<Input size='sm' w={200} borderColor='blackAlpha.400' borderRadius={7} placeholder='Search'></Input>
 									</Flex>
@@ -229,25 +217,6 @@ export default function Groups({ show, handleHide }) {
 								</DrawerBody>
 							</DrawerContent>
 						</Drawer>
-
-						{/* <Box flex={1} className=" bg-white border-t border-b border-r border-opacity-50 border-black" overflow="clip">
-							<TableContainer>
-								<Table className="table-header-color" size="lg" variant="simple">
-									<Thead>
-										<Tr>
-											<Th>User Name</Th>
-											<Th>First Name</Th>
-											<Th>Last Name</Th>
-											<Th>Primary Group</Th>
-											<Th>Email</Th>
-										</Tr>
-									</Thead>
-									<Tbody>
-										<Tr></Tr>
-									</Tbody>
-								</Table>
-							</TableContainer>
-						</Box> */}
 					</Flex>
 				</Box>
 			</Box>
