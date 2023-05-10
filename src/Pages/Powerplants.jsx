@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from '@mdi/react';
 import { Link } from 'react-router-dom';
 import { mdiCloseBox, mdiSquareEditOutline, mdiTrashCan, mdiOpenInNew, mdiLightningBolt, mdiChevronLeft, mdiPlus } from '@mdi/js';
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Select, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react';
+import { Box, Divider, Img, Text, Flex, Grid, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from '@chakra-ui/react';
 import { useTable, usePagination, useGlobalFilter, useSortBy, useFilters } from 'react-table';
 
 export default function Powerplants({ show, handleHide }) {
@@ -37,12 +37,12 @@ export default function Powerplants({ show, handleHide }) {
 
 	const columns = React.useMemo(
 		() => [
-			{ Header: '', accessor: 'img', disableSortBy: true },
-			{ Header: 'Name', accessor: 'name', Filter: SelectColumnFilter, filter: 'includes' },
-			{ Header: 'Code', accessor: 'code' },
-			{ Header: 'Site', accessor: 'site' },
-			{ Header: 'Address', accessor: 'address' },
-			{ Header: '', accessor: 'action', disableSortBy: true }
+			{ Headers: '', accessor: 'img', disableSortBy: true },
+			{ Headers: 'Name', accessor: 'name', Filter: SelectColumnFilter, filter: 'includes' },
+			{ Headers: 'Code', accessor: 'code' },
+			{ Headers: 'Site', accessor: 'site' },
+			{ Headers: 'Address', accessor: 'address' },
+			{ Headers: '', accessor: 'action', disableSortBy: true }
 		],
 		[]
 	);
@@ -117,10 +117,10 @@ export default function Powerplants({ show, handleHide }) {
 		for (let i = 1; i <= count; i++) {
 			const inputTitle = inputTitles[i - 1];
 			inputElements.push(
-				<div key={i} className="flex flex-col gap-1 mb-3">
-					<label className="text-gray-700 text-xs font-bold">{inputTitle}</label>
-					<input className="dropshadow-box-25 border rounded-md p-2 focus:outline-sky-600" type={inputType} />
-				</div>
+				<Box key={i} className="flex flex-col gap-1 mb-3">
+					<Text className="text-gray-700 text-xs font-bold">{inputTitle}</Text>
+					<Input variant="flushed" borderBottom='1px' borderColor='blackAlpha.400' type={inputType} />
+				</Box>
 			);
 		}
 		return inputElements;
@@ -128,228 +128,194 @@ export default function Powerplants({ show, handleHide }) {
 
 	return (
 		<>
-			{show && (
-				<div className="bg-zinc-600 rounded-tl-xl rounded-bl-xl">
-					<div className="bg-black bg-opacity-30 h-16 rounded-tl-xl">
-						<div className="flex justify-between items-center h-16 mx-3">
-							<div className="left flex gap-2 ms-4">
-								<button className="bg-green-500 hover:bg-green-700 rounded-lg font-semibold text-white p-2 text-sm w-20 dropshadow-box-25">Add</button>
-								<button className="bg-red-500 hover:bg-red-700 rounded-lg font-semibold text-white p-2 text-sm w-20 dropshadow-box-25">Cancel</button>
-							</div>
-							<div className="right flex gap-2 items-center">
-								<button onClick={handleHide}>
-									<Icon path={mdiCloseBox} size={1.5} color="#E86B6B" />
-								</button>
-							</div>
-						</div>
-						<div className="input py-5 px-7">
-							<Tabs size="sm" variant="unstyled" isFitted>
-								<TabList className="bg-slate-400 p-1 rounded-lg bg-opacity-30 text-white">
-									<Tab fontSize="20-px" className="rounded-lg" _selected={{ color: 'white', bg: '#01ABE9' }}>
-										Powerplant
-									</Tab>
-								</TabList>
-								<TabPanels className="mt-5">
-									<TabPanel>
-										<div className="flex flex-col gap-3">
-											<div className="flex flex-col gap-1 mb-3">
-												<label className="text-white text-sm font-bold">Name</label>
-												<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
-											</div>
-											<div className="flex flex-col gap-1 mb-3">
-												<label className="text-white text-sm font-bold">Code</label>
-												<input className="dropshadow-box-25 border border-slate-400 bg-gray-400 rounded-md p-2" type="text" />
-											</div>
-											<div className="flex flex-col gap-1 mb-3">
-												<label className="text-white text-sm font-bold">Site</label>
-												<select className="dropshadow-box-25 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
-													<option value="option1">Option 1</option>
-													<option value="option2">Option 2</option>
-													<option value="option3">Option 3</option>
-												</select>
-											</div>
-											<div className="flex flex-col gap-1 mb-3">
-												<label className="text-white text-sm font-bold">Coordinates</label>
-												<button className="bg-lime-400 p-3 rounded-lg text-gray-600 font-semibold">Set Coordinates</button>
-											</div>
-											<div className="flex flex-col gap-1 mb-3">
-												<label className="text-white text-sm font-bold">Image</label>
-												<div className={`relative overflow-hidden bg-lime-400 rounded-lg`}>
-													{!previewImageUrl && (
-														<>
-															<input type="file" onChange={handleFileInputChange} accept="image/*" className="absolute top-0 left-0 opacity-0 cursor-pointer" />
-															<div className="cursor-pointer text-gray-600 font-semibold rounded-md p-2 shadow-md h-14 flex justify-center items-center dropshadow-box-25">Add</div>
-														</>
-													)}
-													{previewImageUrl && (
-														<div className="flex">
-															<button onClick={() => setPreviewImageUrl(null)} className="p-3 bg-red-500 font-bold text-white hover:bg-red-600 transition-all ease-in-out duration-1000">
-																<Icon path={mdiTrashCan} size={1.25} />{' '}
-															</button>
-															<img src={previewImageUrl} width="300px" />
-														</div>
-													)}
-												</div>
-											</div>
-											<div className="flex flex-col gap-1 mb-3">
-												<label className="text-white text-sm font-bold">Responsibilities</label>
-												<button onClick={onOpen} className="bg-lime-400 p-3 flex justify-center items-center rounded-lg text-gray-600">
-													<Icon path={mdiPlus} size={1.25} />
-												</button>
-												<Modal isOpen={isOpen} onClose={onClose} size="6xl">
-													<ModalOverlay bg="none" backdropFilter="auto" backdropBlur="4px" />
-													<ModalContent className="m-3">
-														<ModalHeader className="blue-swbt text-white font-bold rounded-tl-md rounded-tr-md">Responsibilities</ModalHeader>
-														<ModalCloseButton className="text-white" />
-														<ModalBody p="0" m="0" className="bg-slate-200 bg-opacity-60">
-															<div className="flex">
-																<div className="p-6 dropshadow-box-25 w-full">
-																	<h1 className="font-semibold text-gray-700 text-center mb-6 text-lg">Responsibility</h1>
-																	<div className="input-container gap-3 grid md:grid-cols-2 lg:grid-cols-2">
-																		{inputGenerator(11, ['Code', 'Name Default', 'English', 'German', 'Company', 'Last Name', 'First Name', 'Telephone', 'Cellular', 'Email', 'Link'], 'text')}
-																	</div>
-																</div>
-																<div className="p-6 dropshadow-box-25 w-full">
-																	<h1 className="font-semibold text-gray-700 text-center mb-6 text-lg">Address</h1>
-																	<div className="input-container gap-3 grid">{inputGenerator(4, ['Street and No', 'Zip', 'City', 'Country'], 'text')}</div>
-																</div>
-																<div className="p-6 dropshadow-box-25 w-full">
-																	<h1 className="font-semibold text-gray-700 text-center mb-6 text-lg">Coordinates</h1>
-																	<div className="input-container gap-3 grid">{inputGenerator(3, ['Latitude', 'Longitude', 'Other'], 'text')}</div>
-																</div>
-															</div>
-														</ModalBody>
-													</ModalContent>
-												</Modal>
-											</div>
-										</div>
-									</TabPanel>
-								</TabPanels>
-							</Tabs>
-						</div>
-					</div>
-				</div>
-			)}
-
-			<div className="flex-grow flex flex-col bg-gray-300 me-7 rounded-tr-xl rounded-br-xl border border-slate-400 p-7">
-				<div className="w-full flex mb-4 gap-5">
-					{!show && (
-						<div className="table-header-color flex items-center px-4 rounded-lg hover:bg-lime-400 hover:bg-opacity-80 dropshadow-box-25">
-							<button onClick={handleHide}>
+			<>
+				{show && (
+					<Box>
+						<Flex gap={0} className="rounded-tl-lg rounded-bl-lg h-full w-full flex-col bg-zinc-600">
+							<HStack py={1.5} px={4} className="justify-between rounded-tl-lg bg-black bg-opacity-30 h-16">
+								<Flex gap={2}>
+									<Button size="sm" colorScheme="green">
+										Save
+									</Button>
+									<Button size="sm" colorScheme="red">
+										Cancel
+									</Button>
+								</Flex>
+								<Box onClick={handleHide} cursor="pointer">
+									<Icon path={mdiCloseBox} size={1.5} className="text-red-400 hover:text-red-500 transition-all duration-150 ease-in-out" />
+								</Box>
+							</HStack>
+							<Flex direction="column" p={7}>
+								<Grid templateColumns="repeat(2, 150px)" gap={4}>
+									<Box>
+										<Text fontSize={15} textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
+											Name
+										</Text>
+										<Input rounded="md" size="sm" bg="gray.400" border={0} borderRight="2px" borderRightColor="red.500" focusBorderColor="#0288d1" />
+									</Box>
+									<Box>
+										<Text fontSize={15} textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
+											Code
+										</Text>
+										<Input rounded="md" size="sm" bg="gray.400" border={0} borderRight="2px" borderRightColor="red.500" focusBorderColor="#0288d1" />
+									</Box>
+								</Grid>
+								<Divider mt={4} mb={3} />
+								<Box>
+									<Text fontSize={15} textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
+										Site
+									</Text>
+									<Select placeholder="Select option" size="sm" bg="gray.400" rounded="md" border={0} focusBorderColor="#0288d1" type="text">
+										<option value="option1">Option 1</option>
+										<option value="option2">Option 2</option>
+										<option value="option3">Option 3</option>
+									</Select>
+								</Box>
+								<Divider mt={4} mb={3} />
+								<Box mb={3}>
+									<Text fontSize={15} textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
+										Coordinates
+									</Text>
+									<Button bg="gray.400" w="full" fontSize="sm" color="blackAlpha.700" _hover={{ bg: '#c0f661', color: 'blackAlpha.800', transition: 'all 0.2s ease-in-out' }} _active={{ transform: 'scale(0.95)' }}>
+										Set Coordinates
+									</Button>
+								</Box>
+								{!previewImageUrl && (
+									<Box position="relative" overflow="hidden">
+										<Text fontSize={15} textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
+											Image
+										</Text>
+										<Input type="file" onChange={handleFileInputChange} accept="image/*" position="absolute" top={35} left={0} opacity={0} cursor="pointer" />
+										<Box bg="gray.400" p={2.5} rounded="md" textAlign="center" color="blackAlpha.700" fontWeight="semibold" fontSize="sm">
+											Add
+										</Box>
+									</Box>
+								)}
+								{previewImageUrl && (
+									<Box position="relative" w={315}>
+										<Text fontSize={15} textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
+											Image
+										</Text>
+										<Img src={previewImageUrl} w="full" rounded="md" />
+										<Button p={70} opacity={80} bg="blackAlpha.300" size="md" _hover={{ bg: 'blackAlpha.600', opacity: 100 }} top="56%" left="50%" transform="translate(-50%, -50%)" position="absolute" onClick={() => setPreviewImageUrl(null)}>
+											<Icon path={mdiTrashCan} size={4} className="text-white text-opacity-30 transition-opacity duration-300 ease-in-out" />
+										</Button>
+									</Box>
+								)}
+								<Box mt={3}>
+									<Text fontSize={15} textAlign="left" fontWeight="semibold" mb={1.5} className="text-white ">
+										Responsibilities
+									</Text>
+									<Button onClick={onOpen} bg="gray.400" w="full" fontSize="sm" color="blackAlpha.700" _hover={{ bg: '#c0f661', color: 'blackAlpha.800', transition: 'all 0.2s ease-in-out' }} _active={{ transform: 'scale(0.95)' }}>
+										Set Responsibilities
+									</Button>
+									<Modal isOpen={isOpen} onClose={onClose} size="6xl">
+										<ModalOverlay bg="none" backdropFilter="auto" backdropBlur="4px" />
+										<ModalContent className="m-3">
+											<ModalHeader className="blue-swbt text-white font-bold rounded-tl-md rounded-tr-md">Responsibilities</ModalHeader>
+											<ModalCloseButton className="text-white" />
+											<ModalBody p="0" m="0" className="bg-slate-200 bg-opacity-60">
+												<Box className="flex">
+													<Box className="p-6 dropshadow-box-25 w-full">
+														<Text className="font-semibold text-gray-700 text-center mb-6 text-lg">Responsibility</Text>
+														<Box className="input-container gap-3 grid md:grid-cols-2 lg:grid-cols-2">{inputGenerator(11, ['Code', 'Name Default', 'English', 'German', 'Company', 'Last Name', 'First Name', 'Telephone', 'Cellular', 'Email', 'Link'], 'text')}</Box>
+													</Box>
+													<Box className="p-6 dropshadow-box-25 w-full">
+														<Text className="font-semibold text-gray-700 text-center mb-6 text-lg">Address</Text>
+														<Box className="input-container gap-3 grid">{inputGenerator(4, ['Street and No', 'Zip', 'City', 'Country'], 'text')}</Box>
+													</Box>
+													<Box className="p-6 dropshadow-box-25 w-full">
+														<Text className="font-semibold text-gray-700 text-center mb-6 text-lg">Coordinates</Text>
+														<Box className="input-container gap-3 grid">{inputGenerator(3, ['Latitude', 'Longitude', 'Other'], 'text')}</Box>
+													</Box>
+												</Box>
+											</ModalBody>
+										</ModalContent>
+									</Modal>
+								</Box>
+							</Flex>
+						</Flex>
+					</Box>
+				)}
+				<Box bg="gray.300" className={`${show ? 'rounded-tr-lg rounded-br-lg' : 'rounded-lg'} flex flex-col gap-4 p-6 me-7 border border-opacity-50 border-slate-400 flex-grow`} width={200}>
+					<HStack>
+						{!show && (
+							<Button bg="#b7ee5b" _hover={{ backgroundColor: '#99c74b' }} onClick={handleHide} className="dropshadow-box-25">
 								<Icon path={mdiChevronLeft} size={1} />
-							</button>
-						</div>
-					)}
-					<div className="flex-grow table-header-color p-2 rounded-lg text-gray-600 font-sans text-lg dropshadow-box-25">
-						<div className="flex gap-1 items-center">
+							</Button>
+						)}
+						<Flex className="table-header-color w-full ps-2 items-center rounded-lg dropshadow-box-25">
 							<Icon path={mdiLightningBolt} size={1} />
-							<h1>Powerplants</h1>
-						</div>
-					</div>
-					{/* <div className="flex items-center px-16 rounded-lg dropshadow-box-25"></div> */}
-				</div>
-
-				<div className="table-container flex flex-col text-center h-full">
-					<div className="relative flex gap-2">
-						<input
-							className={`p-2 ${open ? 'rounded-lg dropshadow-box-25 transition-all duration-300 delay-0 ease-in-out' : 'rounded-tl-lg rounded-tr-lg'} w-full`}
-							type="text"
-							value={globalFilter || ''}
-							onChange={e => setGlobalFilter(e.target.value)}
-							placeholder=" Search by name..."
-						/>
-
-						{headerGroups.map(headerGroup => (
-							<div {...headerGroup.getHeaderGroupProps()}>
-								{headerGroup.headers.map(column => (
-									<div key={column.id} className="flex gap-2 bg-gray-200 rounded-lg">
-										<div className="">{column.id === 'name' ? <SelectColumnFilter column={column} setFilter={column.setFilter} /> : null}</div>
-									</div>
-								))}
-							</div>
-						))}
-
-						{/* <button onClick={handleFilterShow} className={`absolute right-0 top-0 bg-gray-400 p-2 ${open ? 'rounded-tr-lg rounded-br-lg text-gray-500' : 'rounded-tr-lg'} `}>
-							<Icon path={mdiFilterMenu} size={1} />
-						</button> */}
-					</div>
-					{/* <div className={`${open ? 'opacity-0 sr-only' : 'opacity-100'} bg-gray-400 p-5 rounded-bl-lg rounded-br-lg transition-all duration-1000 ease-in-out dropshadow-box-25`}>
-						{headerGroups.map(headerGroup => (
-							<div {...headerGroup.getHeaderGroupProps()}>
-								{headerGroup.headers.map(column => (
-									<div key={column.id} className="flex gap-2">
-										<div className="">{column.id === 'name' ? <SelectColumnFilter column={column} setFilter={column.setFilter} /> : null}</div>
-									</div>
-								))}
-							</div>
-						))}
-					</div> */}
-					{page.length === 0 ? (
-						<div className="no-data-message my-16">No data available</div>
-					) : (
-						<div className="overflow-hidden h-full rounded-xl bg-gray-300 mb-4 mt-4 dropshadow-box-25">
-							<table {...getTableProps()} className="border-collapse w-full h-full">
-								<thead>
-									{headerGroups.map(headerGroup => (
-										<tr {...headerGroup.getHeaderGroupProps()} className="table-row">
-											{headerGroup.headers.map(column => (
-												<th {...column.getHeaderProps(column.getSortByToggleProps())} className="p-3 border border-black border-opacity-20 table-header-color text-md">
-													{column.render('Header')}
-													<span>
-														{column.isSorted ? ( // Add conditional check for showing sort direction
-															column.isSortedDesc ? (
-																<span className="sort-icon ms-1 text-blue-500">&#x25BC;</span> // Downward arrow for descending sort
-															) : (
-																<span className="sort-icon ms-1 text-blue-500">&#x25B2;</span> // Upward arrow for ascending sort
-															)
-														) : (
-															''
-														)}
-													</span>
-												</th>
+							<Text fontWeight="medium" fontSize="lg" className="p-2 rounded-lg text-gray-600">
+								Powerplants
+							</Text>
+						</Flex>
+						<Flex>
+							<Input variant="filled" placeholder="Search" borderRadius="lg" value={globalFilter || ''} onChange={e => setGlobalFilter(e.target.value)} className="dropshadow-box-25" />
+						</Flex>
+					</HStack>
+					<Box className="flex flex-col h-full">
+						<Box className="h-full">
+							<VStack className="h-full" spacing={0} flex={1}>
+								<TableContainer backgroundColor="gray.200" className={`flex-grow border rounded-tl-lg rounded-tr-lg border-black border-opacity-30 h-full w-full`}>
+									<Table {...getTableProps()} variant="unstyled" size="lg" className="h-full">
+										<Thead className="table-header-color border-b border-black border-opacity-50">
+											{headerGroups.map(headerGroup => (
+												<Tr {...headerGroup.getHeaderGroupProps()} className="table-row">
+													{headerGroup.headers.map(column => (
+														<Th fontSize={14} textAlign="center" {...column.getHeaderProps(column.getSortByToggleProps())}>
+															<Flex justifyContent="center" gap={2}>
+																{column.render('Headers')}
+																{column.isSorted ? ( // Add conditional check for showing sort direction
+																	column.isSortedDesc ? (
+																		<Text className="sort-icon ms">&#x25BC;</Text> // Downward arrow for descending sort
+																	) : (
+																		<Text className="sort-icon ms">&#x25B2;</Text> // Upward arrow for ascending sort
+																	)
+																) : (
+																	''
+																)}
+															</Flex>
+														</Th>
+													))}
+												</Tr>
 											))}
-										</tr>
-									))}
-								</thead>
-								<tbody {...getTableBodyProps()} className="">
-									{page.map(row => {
-										prepareRow(row);
-										return (
-											<tr
-												{...row.getRowProps()}
-												className="border"
-												style={{
-													backgroundColor: row.index % 2 === 0 ? '#ECEBEA' : '#FEFDFD' // Set alternating background colors for rows
-												}}
-											>
-												{row.cells.map(cell => (
-													<td className="py-2 border border-black border-opacity-20 text-sm" {...cell.getCellProps()}>
-														{cell.render('Cell')}
-													</td>
-												))}
-											</tr>
-										);
-									})}
-								</tbody>
-							</table>
-						</div>
-					)}
-					<div className="pagination-container flex gap-10 justify-center bg-gray-400 p-3 rounded-lg">
-						<button onClick={() => previousPage()} disabled={!canPreviousPage}>
-							Previous
-						</button>
-						<span>
-							{/* Page{' '} */}
-							<strong>
-								{pageIndex + 1} of {pageOptions.length}
-							</strong>
-						</span>
-						<button onClick={() => nextPage()} disabled={!canNextPage}>
-							Next
-						</button>
-					</div>
-				</div>
-			</div>
+										</Thead>
+										<Tbody {...getTableBodyProps()}>
+											{page.map(row => {
+												prepareRow(row);
+												return (
+													<Tr {...row.getRowProps()} backgroundColor={row.index % 2 === 0 ? '#ECEBEA' : '#FEFDFD'} className="hover:bg-slate-300 cursor-pointer transition-all duration-150 ease-in-out">
+														{row.cells.map(cell => (
+															<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} className="border-b border-slate-700 border-opacity-50">
+																{cell.render('Cell')}
+															</Td>
+														))}
+													</Tr>
+												);
+											})}
+										</Tbody>
+									</Table>
+								</TableContainer>
+								<Flex gap={2} className="pagination-container flex gap-10 justify-center bg-gray-400 bg-opacity-50 p-3 rounded-bl-md rounded-br-md w-full border-l border-r border-b border-black border-opacity-20">
+									<Button size="sm" bg="transparent" onClick={() => previousPage()} disabled={!canPreviousPage}>
+										Previous
+									</Button>
+									<Text className="flex items-center">
+										{/* Page{' '} */}
+										<strong>
+											{pageIndex + 1} of {pageOptions.length}
+										</strong>
+									</Text>
+									<Button size="sm" bg="transparent" onClick={() => nextPage()} disabled={!canNextPage}>
+										Next
+									</Button>
+								</Flex>
+							</VStack>
+						</Box>
+					</Box>
+				</Box>
+			</>
 		</>
 	);
 }
