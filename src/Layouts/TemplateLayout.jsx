@@ -1,8 +1,8 @@
 import React from 'react';
-import { Outlet, NavLink, Link, useLocation } from 'react-router-dom';
+import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import Icon from '@mdi/react';
-import { mdiFormatSize, mdiChevronRight } from '@mdi/js';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
+import { mdiFormatSize } from '@mdi/js';
+import { Box, Text, Flex, Tooltip, Button, Grid } from '@chakra-ui/react';
 
 export default function IndexLayout() {
 	const location = useLocation();
@@ -10,63 +10,33 @@ export default function IndexLayout() {
 	return (
 		<>
 			{location.pathname !== '/templates/template-editor' && location.pathname !== '/templates/template-variants' && location.pathname !== '/templates/template-advanced' && (
-				<div className="flex w-full flex-col bg-gray-300 me-7 rounded-xl border border-slate-400 p-7">
-					<div className="mb-4 gap-5">
-						<div className="flex-grow table-header-color p-2 rounded-lg text-gray-600 font-sans dropshadow-box-25">
-							<div className="flex gap-2 items-center p-5 justify-start">
-								<Icon path={mdiFormatSize} size={1.5} />
-								{location.pathname === '/templates' && <h1 className="text-2xl font-bold">Templates</h1>}
-								{/* {location.pathname !== '/templates' && (
-									<div className="flex gap-1 items-center text-2xl">
-										<Breadcrumb separator={<Icon path={mdiChevronRight} size={1} />}>
-											<BreadcrumbItem>
-												<Link to="/templates" className="hover:underline">
-													Templates
-												</Link>
-											</BreadcrumbItem>
-											{location.pathname === '/templates/template-editor' && (
-												<BreadcrumbItem>
-													<BreadcrumbLink>Edit</BreadcrumbLink>
-												</BreadcrumbItem>
-											)}
-											{location.pathname === '/templates/template-variants' && (
-												<BreadcrumbItem>
-													<BreadcrumbLink>Variants</BreadcrumbLink>
-												</BreadcrumbItem>
-											)}
-											{location.pathname === '/templates/template-advanced' && (
-												<BreadcrumbItem>
-													<BreadcrumbLink>Advaned Edit</BreadcrumbLink>
-												</BreadcrumbItem>
-											)}
-										</Breadcrumb>
-									</div>
-								)} */}
-							</div>
-						</div>
-					</div>
+				<Flex gap={5} flexDirection="column" bg="gray.300" className="w-full me-7 rounded-lg border border-opacity-50 border-slate-400 p-7">
+					<Box>
+						<Flex gap={2} p={2} rounded="md" className="table-header-color dropshadow-box-25">
+							<Icon path={mdiFormatSize} size={1} />
+							{location.pathname === '/templates' && (
+								<Text fontWeight="medium" className="rounded-lg text-gray-600">
+									Templates
+								</Text>
+							)}
+						</Flex>
+					</Box>
 					{location.pathname !== '/templates/template-editor' && location.pathname !== '/templates/template-variants' && location.pathname !== '/templates/template-advanced' && (
-						<div className="flex-grow items-center">
-							<nav className="grid xs:grid-cols-auto xl:grid-cols-2 2xl:grid-cols-3 gap-10 p-16 place-items-center w-full h-full">
+						<Box className="flex-grow items-center" h="full">
+							<Box gap={6} className="w-full h-full place-items-center grid xs:grid-cols-auto xl:grid-cols-2 2xl:grid-cols-3">
 								<NavLink to="template-editor" className="w-full">
-									<button className="bg-gray-400 hover:bg-lime-300 w-full hover:text-gray-700  transition-all duration-300 bg-opacity-70 dropshadow-box-25 rounded-lg text-3xl p-36 text-white font-bold">
-										Edit
-									</button>
+									<button className="bg-gray-400 hover:bg-lime-300 w-full hover:text-gray-700  transition-all duration-300 bg-opacity-70 dropshadow-box-25 rounded-lg text-3xl p-36 text-white font-bold">Edit</button>
 								</NavLink>
 								<NavLink to="template-variants" className="w-full">
-									<button className="bg-gray-400 hover:bg-lime-300 w-full hover:text-gray-700  transition-all duration-300 bg-opacity-70 dropshadow-box-25 rounded-lg text-3xl p-36 text-white font-bold">
-										Variants
-									</button>
+									<button className="bg-gray-400 hover:bg-lime-300 w-full hover:text-gray-700  transition-all duration-300 bg-opacity-70 dropshadow-box-25 rounded-lg text-3xl p-36 text-white font-bold">Variants</button>
 								</NavLink>
 								<NavLink to="template-advanced" className="w-full">
-									<button className="bg-gray-400 hover:bg-lime-300 w-full hover:text-gray-700  transition-all duration-300 bg-opacity-70 dropshadow-box-25 rounded-lg text-3xl p-36 text-white font-bold">
-										Advance Edit
-									</button>
+									<button className="bg-gray-400 hover:bg-lime-300 w-full hover:text-gray-700  transition-all duration-300 bg-opacity-70 dropshadow-box-25 rounded-lg text-3xl p-36 text-white font-bold">Advance Edit</button>
 								</NavLink>
-							</nav>
-						</div>
+							</Box>
+						</Box>
 					)}
-				</div>
+				</Flex>
 			)}
 			<Outlet />
 		</>

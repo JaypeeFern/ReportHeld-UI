@@ -15,13 +15,13 @@ export default function ItemTypeDefinitions() {
 				version: `${i}`,
 				numberofprops: `${i}`,
 				status: (
-					<Flex justifyContent="center">
+					<Flex justifyContent="center" >
 						<Icon path={i % 2 ? mdiCheck : mdiClose} size={1} />
 					</Flex>
 				),
 				action: (
 					<div className="flex gap-3 justify-center">
-						<Link to="" className={i % 5 ? 'bg-gray-500 hover:bg-gray-700 cursor-not-allowed p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs' : 'bg-green-500 hover:bg-green-700 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs'}>
+						<Link to="" className={i % 5 ? 'hover:text-opacity-100 cursor-not-allowed p-2 rounded-lg text-black text-opacity-60 font-semibold text-xs' : 'bg-green-700 hover:bg-green-800 p-2 rounded-lg text-white font-semibold dropshadow-box-25 text-xs'}>
 							{' '}
 							{i % 5 ? 'Old Version' : 'New Version'}
 						</Link>
@@ -57,10 +57,10 @@ export default function ItemTypeDefinitions() {
 						</Text>
 					</Flex>
 					<Flex gap={2}>
-						<Button colorScheme='green' bg='green.500' size="md" className="">
+						<Button colorScheme='green' bg='green.600' size="md"  color='whiteAlpha.800' className="dropshadow-box-25">
 							Create Item Type Definition
 						</Button>
-						<Button colorScheme='green' bg='green.500' size="md" className="">
+						<Button colorScheme='green' bg='green.600' size="md"  color='whiteAlpha.800' className="dropshadow-box-25">
 							Import Item Type Definition
 						</Button>
 					</Flex>
@@ -101,7 +101,7 @@ export default function ItemTypeDefinitions() {
 											return (
 												<Tr {...row.getRowProps()} backgroundColor={row.index % 2 === 0 ? '#ECEBEA' : '#FEFDFD'} className="hover:bg-slate-300 cursor-pointer transition-all duration-150 ease-in-out">
 													{row.cells.map(cell => (
-														<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} className="border-b border-slate-700 border-opacity-50">
+														<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} className={`border-b border-slate-700 border-opacity-50 ${row.index % 2 ? 'opacity-60' : 'opacity-100'}`}>
 															{cell.render('Cell')}
 														</Td>
 													))}

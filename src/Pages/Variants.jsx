@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Divider, Text, Flex, Grid, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag } from '@chakra-ui/react';
 import Icon from '@mdi/react';
-import { mdiCloseBox, mdiChevronLeft, mdiChartSankeyVariant, mdiCheck, mdiClose, mdiAlert } from '@mdi/js';
+import { mdiChevronRight, mdiChevronLeft, mdiChartSankeyVariant, mdiCheck, mdiClose, mdiAlert } from '@mdi/js';
 import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
 import { faker } from '@faker-js/faker/locale/en';
 
@@ -51,7 +51,7 @@ export default function Variants({ show, handleHide }) {
 								</Button>
 							</Flex>
 							<Box onClick={handleHide} cursor="pointer">
-								<Icon path={mdiCloseBox} size={1.5} className="text-red-400 hover:text-red-500 transition-all duration-150 ease-in-out" />
+								<Icon path={mdiChevronRight} size={1.5} className="text-red-400 hover:text-red-500 transition-all duration-150 ease-in-out" />
 							</Box>
 						</HStack>
 						<Flex direction="column" px={7} py={5}>

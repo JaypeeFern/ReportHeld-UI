@@ -1,15 +1,21 @@
 import React from 'react';
 import Icon from '@mdi/react';
 import { Link } from 'react-router-dom';
-import { mdiCloseBox, mdiSquareEditOutline, mdiTrashCan, mdiOpenInNew, mdiLightningBolt, mdiChevronLeft, mdiPlus } from '@mdi/js';
-import { Box, Divider, Img, Text, Flex, Grid, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from '@chakra-ui/react';
+import { mdiChevronRight, mdiCloseBox, mdiSquareEditOutline, mdiTrashCan, mdiOpenInNew, mdiLightningBolt, mdiChevronLeft, mdiPlus } from '@mdi/js';
+import { Image, Box, Divider, Img, Text, Flex, Grid, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from '@chakra-ui/react';
 import { useTable, usePagination, useGlobalFilter, useSortBy, useFilters } from 'react-table';
+import { faker } from '@faker-js/faker/locale/en';
 
 export default function Powerplants({ show, handleHide }) {
 	const generateRandomData = count => {
 		const data = [];
 		for (let i = 1; i <= count; i++) {
 			data.push({
+				image: (
+					<Flex justify="center">
+						<Image src={faker.image.business(100, 100, true)} rounded="md" />
+					</Flex>
+				),
 				name: `Powerplant ${i}`,
 				code: `PP${i}`,
 				address: 'Freistaat Bayern',
@@ -37,12 +43,12 @@ export default function Powerplants({ show, handleHide }) {
 
 	const columns = React.useMemo(
 		() => [
-			{ Headers: '', accessor: 'img', disableSortBy: true },
+			{ Headers: '', accessor: 'image', disableSortBy: true },
 			{ Headers: 'Name', accessor: 'name', Filter: SelectColumnFilter, filter: 'includes' },
 			{ Headers: 'Code', accessor: 'code' },
 			{ Headers: 'Site', accessor: 'site' },
 			{ Headers: 'Address', accessor: 'address' },
-			{ Headers: '', accessor: 'action', disableSortBy: true }
+			{ Headers: 'Action', accessor: 'action', disableSortBy: true }
 		],
 		[]
 	);
@@ -119,7 +125,7 @@ export default function Powerplants({ show, handleHide }) {
 			inputElements.push(
 				<Box key={i} className="flex flex-col gap-1 mb-3">
 					<Text className="text-gray-700 text-xs font-bold">{inputTitle}</Text>
-					<Input variant="flushed" borderBottom='1px' borderColor='blackAlpha.400' type={inputType} />
+					<Input variant="flushed" borderBottom="1px" borderColor="blackAlpha.400" type={inputType} />
 				</Box>
 			);
 		}
@@ -142,7 +148,7 @@ export default function Powerplants({ show, handleHide }) {
 									</Button>
 								</Flex>
 								<Box onClick={handleHide} cursor="pointer">
-									<Icon path={mdiCloseBox} size={1.5} className="text-red-400 hover:text-red-500 transition-all duration-150 ease-in-out" />
+									<Icon path={mdiChevronRight} size={1.5} className="text-red-400 hover:text-red-500 transition-all duration-150 ease-in-out" />
 								</Box>
 							</HStack>
 							<Flex direction="column" p={7}>
@@ -250,10 +256,21 @@ export default function Powerplants({ show, handleHide }) {
 								Powerplants
 							</Text>
 						</Flex>
-						<Flex>
+					</HStack>
+					<Flex gap={3}>
+						<Flex flexGrow={1}>
 							<Input variant="filled" placeholder="Search" borderRadius="lg" value={globalFilter || ''} onChange={e => setGlobalFilter(e.target.value)} className="dropshadow-box-25" />
 						</Flex>
-					</HStack>
+						{headerGroups.map(headerGroup => (
+							<Box bg="whiteAlpha.700" rounded="md" {...headerGroup.getHeaderGroupProps()}>
+								{headerGroup.headers.map(column => (
+									<Box key={column.id} className="flex gap-2">
+										<Box className="">{column.id === 'name' ? <SelectColumnFilter column={column} setFilter={column.setFilter} /> : null}</Box>
+									</Box>
+								))}
+							</Box>
+						))}
+					</Flex>
 					<Box className="flex flex-col h-full">
 						<Box className="h-full">
 							<VStack className="h-full" spacing={0} flex={1}>

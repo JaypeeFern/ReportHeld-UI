@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Text, Flex, Grid, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag } from '@chakra-ui/react';
 import Icon from '@mdi/react';
-import { mdiAccountPlus, mdiChevronLeft, mdiCloseBox } from '@mdi/js';
+import { mdiChevronRight, mdiAccountPlus, mdiChevronLeft, mdiCloseBox } from '@mdi/js';
 import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
-import { faker } from '@faker-js/faker/locale/en'
+import { faker } from '@faker-js/faker/locale/en';
 
 export default function Users({ show, handleHide }) {
 	const generateRandomData = count => {
@@ -56,7 +56,7 @@ export default function Users({ show, handleHide }) {
 								</Button>
 							</Flex>
 							<Box onClick={handleHide} cursor="pointer">
-								<Icon path={mdiCloseBox} size={1.5} className="text-red-400 hover:text-red-500 transition-all duration-150 ease-in-out" />
+								<Icon path={mdiChevronRight} size={1.5} className="text-red-400 hover:text-red-500 transition-all duration-150 ease-in-out" />
 							</Box>
 						</HStack>
 						<Flex direction="column" p={7}>
@@ -151,7 +151,7 @@ export default function Users({ show, handleHide }) {
 											<Tr {...headerGroup.getHeaderGroupProps()} className="table-row">
 												{headerGroup.headers.map(column => (
 													<Th fontSize={14} textAlign="center" {...column.getHeaderProps(column.getSortByToggleProps())}>
-														<Flex justifyContent='center' gap={2}>
+														<Flex justifyContent="center" gap={2}>
 															{column.render('Headers')}
 															{column.isSorted ? ( // Add conditional check for showing sort direction
 																column.isSortedDesc ? (
