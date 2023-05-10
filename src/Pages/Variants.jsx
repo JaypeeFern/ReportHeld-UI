@@ -136,7 +136,7 @@ export default function Variants({ show, handleHide }) {
 											return (
 												<Tr {...row.getRowProps()} backgroundColor={row.index % 2 === 0 ? '#ECEBEA' : '#FEFDFD'} className="hover:bg-slate-300 cursor-pointer transition-all duration-150 ease-in-out">
 													{row.cells.map(cell => (
-														<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} className="border-b border-slate-700 border-opacity-50">
+														<Td p={2} textAlign="center" tabIndex={0} {...cell.getCellProps()} className={`border-b border-slate-700 border-opacity-50 ${row.index % 2 ? 'opacity-40' : ''}`}>
 															{cell.render('Cell')}
 														</Td>
 													))}
