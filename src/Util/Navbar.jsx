@@ -1,11 +1,12 @@
 import React from 'react';
 import Icon from '@mdi/react';
 import { Link } from 'react-router-dom';
-import { mdiAccountCircle, mdiSignal, mdiDatabaseArrowDown, mdiAlertBox } from '@mdi/js';
+import { mdiSignal, mdiDatabaseArrowDown, mdiAlertBox } from '@mdi/js';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, useDisclosure, Button, ModalCloseButton, Badge } from '@chakra-ui/react';
+import Profile from '../Pages/Profile';
 
 export default function Navbar() {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
 
 	const [count, setCount] = React.useState(null);
 	const [counttwo, setCountTwo] = React.useState(null);
@@ -18,7 +19,7 @@ export default function Navbar() {
 		const startCountdown = () => {
 			// Start the countdown with a random number between 1000 and 9999
 			setCount(getRandomNumber(1000, 9999));
-			setCountTwo(getRandomNumber(1000, 9999))
+			setCountTwo(getRandomNumber(1000, 9999));
 		};
 
 		const intervalId = setInterval(() => {
@@ -50,8 +51,7 @@ export default function Navbar() {
 					// If countdown reaches 0, reset and start a new countdown
 					startCountdown();
 				}
-			})
-
+			});
 		}, 1000);
 
 		// Clean up the interval when the component unmounts
@@ -72,12 +72,12 @@ export default function Navbar() {
 						<span className="text-zinc-300">held</span>
 						<div className="ms-2 flex items-center gap-1 font-sm">
 							<Icon path={counttwo >= 0 ? mdiDatabaseArrowDown : mdiSignal} size={1} />
-							<span className='text-sm font-bold'>{counttwo}</span>
+							<span className="text-sm font-bold">{counttwo}</span>
 						</div>
-						<button onClick={onOpen} className="ms-3 bg-sky-800 text-xs rounded-md p-2">
+						<button onClick={onModalOpen} className="ms-3 bg-sky-800 text-xs rounded-md p-2">
 							After Login: Payload Loading UI
 						</button>
-						<Modal isOpen={isOpen} size="lg" onClose={onClose} isCentered closeOnOverlayClick={false}>
+						<Modal isOpen={isModalOpen} size="lg" onClose={onModalClose} isCentered closeOnOverlayClick={false}>
 							<ModalOverlay bg="none" backdropFilter="auto" backdropBlur="2px" />;
 							<ModalContent className="h-64">
 								<ModalHeader className="text-center blue-swbt text-white rounded-tl-lg rounded-tr-lg">
@@ -98,7 +98,7 @@ export default function Navbar() {
 								<ModalBody className="bg-slate-200 bg-opacity-60 rounded-bl-lg rounded-br-lg">
 									<div className="flex justify-center items-center h-full flex-col gap-8">
 										<span className="font-light">Please be patient while data is loaded completely</span>
-										<Button onClick={onClose} isLoading={count <= 0 ? false : true} colorScheme="linkedin" loadingText="Payloads Loading" variant="solid">
+										<Button onClick={onModalClose} isLoading={count <= 0 ? false : true} colorScheme="linkedin" loadingText="Payloads Loading" variant="solid">
 											Close
 										</Button>
 									</div>
@@ -106,10 +106,7 @@ export default function Navbar() {
 							</ModalContent>
 						</Modal>
 					</div>
-					<div className="flex gap-2 items-center text-white">
-						<span className="text-md">Administrator</span>
-						<Icon path={mdiAccountCircle} size={1.2} />
-					</div>
+					<Profile />
 				</div>
 			</div>
 		</>
