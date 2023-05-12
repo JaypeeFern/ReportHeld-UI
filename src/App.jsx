@@ -32,7 +32,7 @@ function App() {
 					<Route path="sites" element={<Sites show={show} handleHide={handleHide} />} />
 					<Route path="edit-groups" element={<SitesEditGroup />} />
 					<Route path="powerplants" element={<Powerplants show={show} handleHide={handleHide} />} />
-					<Route path="features" element={<PowerPlantFeatures />} />
+					<Route path="features" element={<PowerPlantFeatures show={show} handleHide={handleHide} />} />
 					<Route path="protocols" element={<Protocols />} />
 					<Route path="templates" element={<TemplateLayout />}>
 						<Route path="template-editor" element={<TemplateEditor show={show} handleHide={handleHide} />} />

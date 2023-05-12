@@ -18,6 +18,7 @@ export default function Powerplants({ show, handleHide }) {
 				),
 				name: `Powerplant ${i}`,
 				code: `PP${i}`,
+				site: `PP${i}`,
 				address: 'Freistaat Bayern',
 				action: (
 					<div className="flex gap-3 justify-center">

@@ -74,8 +74,8 @@ export default function Sites({ show, handleHide }) {
 		[]
 	);
 
-	const { getTableProps, getTableBodyProps, headerGroups, page, nextPage, previousPage, canPreviousPage, canNextPage, pageOptions, state, setGlobalFilter, prepareRow } = useTable(
-		{ columns, data },
+	const { getTableProps, getTableBodyProps, headerGroups, page, nextPage, previousPage, gotoPage, canPreviousPage, canNextPage, pageOptions, state, setGlobalFilter, prepareRow } = useTable(
+		{ columns, data, initialState: { pageIndex: 0 } },
 		useGlobalFilter, // Use global filter hook
 		useSortBy, // Use sort by hook
 		usePagination // Use pagination hook
@@ -170,7 +170,7 @@ export default function Sites({ show, handleHide }) {
 				</Box>
 			)}
 			<Box bg="gray.300" className={`${show ? 'rounded-tr-lg rounded-br-lg' : 'rounded-lg'} flex flex-col gap-4 p-6 me-7 border border-opacity-50 border-slate-400 flex-grow`} width={200}>
-				<HStack >
+				<HStack>
 					{!show && (
 						<Button bg="#b7ee5b" _hover={{ backgroundColor: '#99c74b' }} onClick={handleHide} className="dropshadow-box-25">
 							<Icon path={mdiChevronLeft} size={1} />
@@ -234,12 +234,11 @@ export default function Sites({ show, handleHide }) {
 									</Tbody>
 								</Table>
 							</TableContainer>
-							<Flex gap={2} className="pagination-container flex gap-10 justify-center bg-gray-400 bg-opacity-50 p-3 rounded-bl-md rounded-br-md w-full border-l border-r border-b border-black border-opacity-20">
+							<Flex position="relative" gap={2} className="pagination-container flex gap-10 justify-center bg-gray-400 bg-opacity-50 p-3 rounded-bl-md rounded-br-md w-full border-l border-r border-b border-black border-opacity-20">
 								<Button size="sm" bg="transparent" onClick={() => previousPage()} disabled={!canPreviousPage}>
 									Previous
 								</Button>
 								<Text className="flex items-center">
-									{/* Page{' '} */}
 									<strong>
 										{pageIndex + 1} of {pageOptions.length}
 									</strong>
@@ -247,6 +246,31 @@ export default function Sites({ show, handleHide }) {
 								<Button size="sm" bg="transparent" onClick={() => nextPage()} disabled={!canNextPage}>
 									Next
 								</Button>
+								<Flex alignItems="center" position="absolute" right={3} top={2} gap={2}>
+									<Text>Go to page: </Text>
+									{/* <Input
+										type="number"
+										defaultValue={pageIndex + 1}
+										onChange={e => {
+											const page = e.target.value ? Number(e.target.value) - 1 : 0;
+											gotoPage(page);
+										}}
+										style={{ width: '50px' }}
+									/> */}
+									<select
+										value={pageIndex + 1}
+										onChange={e => {
+											const page = e.target.value ? Number(e.target.value) - 1 : 0;
+											gotoPage(page);
+										}}
+									>
+										{pageOptions.map((page, i) => (
+											<option key={i} value={i + 1}>
+												{i + 1}
+											</option>
+										))}
+									</select>
+								</Flex>
 							</Flex>
 						</VStack>
 					</Box>
