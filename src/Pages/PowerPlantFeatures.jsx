@@ -92,7 +92,7 @@ export default function PowerPlantFeatures({ show, handleHide }) {
 				</Flex>
 				<Flex w="full">
 					<Accordion allowMultiple className=" w-full bg-gray-400 bg-opacity-40">
-						{generateRandomData(8, generateFaker(10), 'Test', 'Test', 'Test')}
+						{buttonState ? generateRandomData(8, generateFaker(10), 'Test', 'Test', 'Test') : generateRandomData(8, generateFaker(10), 'Test', 'Test', 'Please choose a predefined value that will be changed')}
 					</Accordion>
 				</Flex>
 			</Box>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Text, Flex, Grid, Input, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button, HStack, VStack, Select, Textarea, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Tag } from '@chakra-ui/react';
 import Icon from '@mdi/react';
 import { mdiChevronRight, mdiAccountPlus, mdiChevronLeft, mdiCloseBox } from '@mdi/js';
-import { useTable, usePagination, useGlobalFilter, useSortBy } from 'react-table';
+import { useTable, usePagination, useGlobalFilter, useSortBy, useFilters } from 'react-table';
 import { faker } from '@faker-js/faker/locale/en';
 
 export default function Users({ show, handleHide }) {
@@ -33,9 +33,10 @@ export default function Users({ show, handleHide }) {
 		],
 		[]
 	);
-	const { getTableProps, getTableBodyProps, headerGroups, page, nextPage, previousPage, canPreviousPage, canNextPage, pageOptions, state, setGlobalFilter, prepareRow } = useTable(
-		{ columns, data },
+	const { getTableProps, getTableBodyProps, headerGroups, page, nextPage, previousPage, gotoPage, canPreviousPage, canNextPage, pageOptions, state, setGlobalFilter, prepareRow } = useTable(
+		{ columns, data, initialState: { pageIndex: 0 } },
 		useGlobalFilter, // Use global filter hook
+		useFilters, // Use filters hook
 		useSortBy, // Use sort by hook
 		usePagination // Use pagination hook
 	);
@@ -184,12 +185,11 @@ export default function Users({ show, handleHide }) {
 									</Tbody>
 								</Table>
 							</TableContainer>
-							<Flex gap={2} className="pagination-container flex gap-10 justify-center bg-gray-400 bg-opacity-50 p-3 rounded-bl-md rounded-br-md w-full border-l border-r border-b border-black border-opacity-20">
+							<Flex position="relative" gap={2} className="pagination-container flex gap-10 justify-center bg-gray-400 bg-opacity-50 p-3 rounded-bl-md rounded-br-md w-full border-l border-r border-b border-black border-opacity-20">
 								<Button size="sm" bg="transparent" onClick={() => previousPage()} disabled={!canPreviousPage}>
 									Previous
 								</Button>
 								<Text className="flex items-center">
-									{/* Page{' '} */}
 									<strong>
 										{pageIndex + 1} of {pageOptions.length}
 									</strong>
@@ -197,6 +197,38 @@ export default function Users({ show, handleHide }) {
 								<Button size="sm" bg="transparent" onClick={() => nextPage()} disabled={!canNextPage}>
 									Next
 								</Button>
+								<Flex alignItems="center" position="absolute" right={4} top={2} gap={2}>
+									{/* <Text>Enter page: </Text>
+									<Input
+										type="number"
+										defaultValue={pageIndex + 1}
+										onChange={e => {
+											const page = e.target.value ? Number(e.target.value) - 1 : 0;
+											gotoPage(page);
+										}}
+										style={{ width: '50px' }}
+									/> */}
+									<Flex alignItems="center" gap={2}>
+										<Text fontSize={14} w={135}>
+											Go to page:{' '}
+										</Text>
+										<Select
+											value={pageIndex + 1}
+											onChange={e => {
+												const page = e.target.value ? Number(e.target.value) - 1 : 0;
+												gotoPage(page);
+											}}
+											variant="solid"
+											size="md"
+										>
+											{pageOptions.map((page, i) => (
+												<option key={i} value={i + 1}>
+													{i + 1}
+												</option>
+											))}
+										</Select>
+									</Flex>
+								</Flex>
 							</Flex>
 						</VStack>
 					</Box>

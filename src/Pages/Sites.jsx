@@ -246,9 +246,9 @@ export default function Sites({ show, handleHide }) {
 								<Button size="sm" bg="transparent" onClick={() => nextPage()} disabled={!canNextPage}>
 									Next
 								</Button>
-								<Flex alignItems="center" position="absolute" right={3} top={2} gap={2}>
-									<Text>Go to page: </Text>
-									{/* <Input
+								<Flex alignItems="center" position="absolute" right={4} top={2} gap={2}>
+									{/* <Text>Enter page: </Text>
+									<Input
 										type="number"
 										defaultValue={pageIndex + 1}
 										onChange={e => {
@@ -257,19 +257,24 @@ export default function Sites({ show, handleHide }) {
 										}}
 										style={{ width: '50px' }}
 									/> */}
-									<select
-										value={pageIndex + 1}
-										onChange={e => {
-											const page = e.target.value ? Number(e.target.value) - 1 : 0;
-											gotoPage(page);
-										}}
-									>
-										{pageOptions.map((page, i) => (
-											<option key={i} value={i + 1}>
-												{i + 1}
-											</option>
-										))}
-									</select>
+									<Flex alignItems='center' gap={2}>
+										<Text fontSize={14} w={135}>Go to page: </Text>
+										<Select
+											value={pageIndex + 1}
+											onChange={e => {
+												const page = e.target.value ? Number(e.target.value) - 1 : 0;
+												gotoPage(page);
+											}}
+											variant='solid'
+											size='md'
+										>
+											{pageOptions.map((page, i) => (
+												<option key={i} value={i + 1}>
+													{i + 1}
+												</option>
+											))}
+										</Select>
+									</Flex>
 								</Flex>
 							</Flex>
 						</VStack>
