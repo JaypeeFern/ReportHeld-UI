@@ -9,6 +9,8 @@ import FeedbackIcon from '@mui/icons-material/Feedback';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
+import GroupWorkIcon from '@mui/icons-material/GroupWork';
+import SchemaIcon from '@mui/icons-material/Schema';
 
 export const views = {
 	sites: {
@@ -29,7 +31,7 @@ export const views = {
 	},
 	powerplantfeatures: {
 		name: 'Power Plant Features',
-		icon: <QuestionMarkOutlinedIcon fontSize='large'/>,
+		icon: <GroupWorkIcon fontSize='large'/>,
 		path: 'features',
 		borderBottom: true,
 		hidden: false
@@ -57,7 +59,7 @@ export const views = {
 	},
 	typedefinitions: {
 		name: 'Type Definitions',
-		icon: <QuestionMarkOutlinedIcon fontSize='large'/>,
+		icon: <SchemaIcon fontSize='large'/>,
 		path: 'definitions',
 		borderBottom: true,
 		hidden: false
