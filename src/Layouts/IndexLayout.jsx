@@ -6,14 +6,14 @@ import Feedback from '../Pages/Feedback';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function IndexLayout() {
+export default function IndexLayout({ menuState, handleMenuState }) {
 	return (
 		<>
-			<Navbar />
+			<Navbar menuState={menuState} handleMenuState={handleMenuState} />
 			<div className="flex my-7 relative">
-				<Sidebar />
+				<Sidebar menuState={menuState} handleMenuState={handleMenuState} />
 				<Outlet />
-				<Feedback/>
+				<Feedback />
 				<ToastContainer />
 			</div>
 		</>

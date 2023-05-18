@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverBody, PopoverFooter, PopoverArrow, PopoverCloseButton, PopoverAnchor, Box, InputLeftElement, InputGroup, Text, Flex, Input, Button, HStack, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon } from '@chakra-ui/react';
+import { Grid, GridItem, Checkbox, Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverBody, PopoverFooter, PopoverArrow, PopoverCloseButton, PopoverAnchor, Box, InputLeftElement, InputGroup, Text, Flex, Input, Button, HStack, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Divider } from '@chakra-ui/react';
 import Icon from '@mdi/react';
 import { mdiChevronRight, mdiChevronLeft, mdiHelp, mdiChevronDown, mdiMagnify } from '@mdi/js';
 import { faker } from '@faker-js/faker/locale/en';
@@ -9,6 +9,20 @@ export default function PowerPlantFeatures({ show, handleHide }) {
 	function handleButtonState() {
 		setButtonState(prevState => !prevState);
 	}
+
+	const generateCheckBox = count => {
+		const data = [];
+		for (let i = 1; i <= count; i++) {
+			data.push(
+				<GridItem key={i}>
+					<Checkbox size={'sm'} defaultChecked={i % 2 ? true : false}>
+						Type
+					</Checkbox>
+				</GridItem>
+			);
+		}
+		return data;
+	};
 
 	const generateRandomData = (count, templateHeader = [], templateName, templateItems, templateProtocols, templateStatusClose, templateStatusOpen, templateGroup) => {
 		const data = [];
@@ -78,9 +92,36 @@ export default function PowerPlantFeatures({ show, handleHide }) {
 											<Button p={0}>
 												<Flex w={300} alignItems={'center'}>
 													<Flex px={2} flexGrow={1}>
-														<Text fontWeight={400} fontSize={12} color={'blackAlpha.700'}>
+														{/* <Text fontWeight={400} fontSize={12} color={'blackAlpha.700'}>
 															Select Powerplant Type
-														</Text>
+														</Text> */}
+														<Flex gap={'7px'}>
+															<Box bg={'blackAlpha.300'} p={1.5}>
+																<Text fontWeight={700} fontSize={12} color={'blackAlpha.700'}>
+																	Type
+																</Text>
+															</Box>
+															<Box bg={'blackAlpha.300'} p={1.5}>
+																<Text fontWeight={700} fontSize={12} color={'blackAlpha.700'}>
+																	Type
+																</Text>
+															</Box>
+															<Box bg={'blackAlpha.300'} p={1.5}>
+																<Text fontWeight={700} fontSize={12} color={'blackAlpha.700'}>
+																	Type
+																</Text>
+															</Box>
+															<Box bg={'blackAlpha.300'} p={1.5}>
+																<Text fontWeight={700} fontSize={12} color={'blackAlpha.700'}>
+																	Type
+																</Text>
+															</Box>
+															<Box p={1.5} w={'full'}>
+																<Text fontWeight={700} fontSize={12} color={'blackAlpha.700'}>
+																	+4 more
+																</Text>
+															</Box>
+														</Flex>
 													</Flex>
 													<Box>
 														<Text fontWeight={400} fontSize={12} color={'blackAlpha.800'}>
@@ -95,33 +136,20 @@ export default function PowerPlantFeatures({ show, handleHide }) {
 										</PopoverTrigger>
 										<PopoverContent w={300}>
 											<PopoverBody boxShadow={'lg'}>
-												<Flex gap={2} direction={'column'} p={2} bg={'white'} h={200}>
-													<Flex justifyContent={'space-between'} alignItems={'center'}>
-														<Text fontWeight={700} fontSize={14}>
+												<Flex gap={2} direction={'column'} p={2} bg={'white'}>
+													<Flex gap={2} justifyContent={'space-between'} alignItems={'center'}>
+														{/* <Text fontWeight={700} fontSize={14}>
 															Search and Select
-														</Text>
-														<Button size={'xs'}>SELECT ALL</Button>
+														</Text> */}
+														<Input size={'sm'} placeholder="Search type" />
+														<Button size={'sm'}>CLEAR</Button>
 													</Flex>
 													<Box>
-														<Input size={'sm'} placeholder="Search type" />
+														<Divider mt={2} />
 													</Box>
-													<Flex direction={'column'} w={'55px'}>
-														<Checkbox size={'sm'} defaultChecked>
-															Type
-														</Checkbox>
-														<Checkbox size={'sm'} defaultChecked>
-															Type
-														</Checkbox>
-														<Checkbox size={'sm'} defaultChecked>
-															Type
-														</Checkbox>
-														<Checkbox size={'sm'} defaultChecked>
-															Type
-														</Checkbox>
-														<Checkbox size={'sm'} defaultChecked>
-															Type
-														</Checkbox>
-													</Flex>
+													<Grid overflowWrap={'anywhere'} templateColumns={'repeat(4, 58px)'} templateRows="repeat(4, 1fr)" gap={2} w={'55px'} mt={3}>
+														{generateCheckBox(16)}
+													</Grid>
 												</Flex>
 											</PopoverBody>
 										</PopoverContent>

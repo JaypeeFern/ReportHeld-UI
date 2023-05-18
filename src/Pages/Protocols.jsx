@@ -112,12 +112,21 @@ export default function Protocols() {
 					</Flex>
 				</HStack>
 				{open && (
-					<Flex bg="blackAlpha.200" py={5} px={6} mt={-4} roundedBottomLeft="md" roundedBottomRight="md" className="dropshadow-box-25">
+					<Flex gap={2} bg="blackAlpha.200" py={5} px={6} mt={-4} roundedBottomLeft="md" roundedBottomRight="md" className="dropshadow-box-25">
 						{headerGroups.map(headerGroup => (
 							<Box {...headerGroup.getHeaderGroupProps()}>
 								{headerGroup.headers.map(column => (
 									<Box key={column.id} className="flex gap-2">
 										<Box className="">{column.id === 'name' ? <SelectColumnFilter column={column} setFilter={column.setFilter} /> : null}</Box>
+									</Box>
+								))}
+							</Box>
+						))}
+						{headerGroups.map(headerGroup => (
+							<Box {...headerGroup.getHeaderGroupProps()}>
+								{headerGroup.headers.map(column => (
+									<Box key={column.id} className="flex gap-2">
+										<Box className="">{column.id === 'date' ? <SelectColumnFilter column={column} setFilter={column.setFilter} /> : null}</Box>
 									</Box>
 								))}
 							</Box>

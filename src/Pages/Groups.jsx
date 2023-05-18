@@ -217,6 +217,7 @@ export default function Groups({ show, handleHide }) {
 									<Flex gap={3}>
 										<Text fontWeight="light">Selected Group:</Text>
 										<Text flex={1}>{faker.company.name()}</Text>
+										<Button colorScheme='green' size={'xs'} mt={1}>Edit Groups</Button>
 										<Tag className="flex gap-2">
 											<Text>Users:</Text>
 											<Text fontWeight="bold">{faker.datatype.number()}</Text>

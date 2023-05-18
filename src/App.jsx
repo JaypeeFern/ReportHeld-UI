@@ -24,11 +24,17 @@ function App() {
 		setShow(prevState => !prevState);
 	}
 
+	// Expand/Collapse Sidenav
+	const [menuState, setMenuState] = React.useState(false);
+	const handleMenuState = () => {
+		setMenuState(prevState => !prevState);
+	};
+
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route path="/">
 				<Route index element={<Login />} />
-				<Route element={<IndexLayout />}>
+				<Route element={<IndexLayout menuState={menuState} handleMenuState={handleMenuState} />}>
 					<Route path="sites" element={<Sites show={show} handleHide={handleHide} />} />
 					<Route path="edit-groups" element={<SitesEditGroup />} />
 					<Route path="powerplants" element={<Powerplants show={show} handleHide={handleHide} />} />

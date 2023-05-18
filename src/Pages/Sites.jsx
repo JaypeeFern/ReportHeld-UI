@@ -83,8 +83,9 @@ export default function Sites({ show, handleHide }) {
 
 	const { pageIndex, globalFilter } = state; // Get current state values
 
+	// Flex w={'full'} ms={90}
 	return (
-		<>
+		<> 
 			{show && (
 				<Box>
 					<Flex gap={0} className="rounded-tl-lg rounded-bl-lg h-full w-full flex-col bg-zinc-600">

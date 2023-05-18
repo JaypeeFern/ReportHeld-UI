@@ -1,11 +1,11 @@
 import React from 'react';
 import Icon from '@mdi/react';
 import { Link } from 'react-router-dom';
-import { mdiSignal, mdiDatabaseArrowDown, mdiAlertBox } from '@mdi/js';
+import { mdiSignal, mdiDatabaseArrowDown, mdiAlertBox, mdiMenu, mdiMenuOpen  } from '@mdi/js';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, useDisclosure, Button, ModalCloseButton, Badge } from '@chakra-ui/react';
 import Profile from '../Pages/Profile';
 
-export default function Navbar() {
+export default function Navbar({ menuState, handleMenuState }) {
 	const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
 
 	const [count, setCount] = React.useState(null);
@@ -45,7 +45,7 @@ export default function Navbar() {
 					startCountdown();
 				} else if (prevCount > 0) {
 					// If countdown is greater than 0, decrease the count by a random increment between 1 and 5
-					const decrement = getRandomNumber(500, 1000);
+					const decrement = getRandomNumber(500, 3000);
 					return prevCount - decrement;
 				} else {
 					// If countdown reaches 0, reset and start a new countdown
@@ -70,9 +70,14 @@ export default function Navbar() {
 					<div className="text-white text-xl font-light flex items-center">
 						<span className="dropshadow-text">Report</span>
 						<span className="text-zinc-300">held</span>
-						<div className="ms-2 flex items-center gap-1 font-sm">
-							<Icon path={counttwo >= 0 ? mdiDatabaseArrowDown : mdiSignal} size={1} />
-							<span className="text-sm font-bold">{counttwo}</span>
+						{counttwo >= 0 && (
+							<div className="ms-2 flex items-center gap-1 font-sm">
+								<Icon path={counttwo >= 0 ? mdiDatabaseArrowDown : mdiSignal} size={1} />
+								<span className="text-sm font-bold">{counttwo}</span>
+							</div>
+						)}
+						<div onClick={handleMenuState} className="ms-3 bg-black bg-opacity-30 hover:bg-opacity-50 cursor-pointer p-1 rounded-full transition-all duration-300 ease-in-out">
+							<Icon path={menuState ? mdiMenuOpen : mdiMenu } size={1} className="opacity-50 hover:opacity-100 transition-all duration-300 ease-in-out " />
 						</div>
 						<button onClick={onModalOpen} className="ms-3 bg-sky-800 text-xs rounded-md p-2">
 							After Login: Payload Loading UI
